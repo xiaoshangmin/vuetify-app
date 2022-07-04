@@ -45,7 +45,7 @@ export default {
             let param = new FormData();//创建form对象
             param.append("file", file);//为创建的form对象增加上传的文件 
             let config = { headers: { "Content-Type": "multipart/form-data" } }//修改请求头   
-            this.$http.post("/api/index/upload", param, config).then((res) => {
+            this.$http.post("/api/upload", param, config).then((res) => {
                 console.log(res);
             });
         },

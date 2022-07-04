@@ -14,6 +14,7 @@ export default defineConfig({
   },
   server: {
     // 修改端口
+    host:'0.0.0.0',
     port: 8888,
     proxy: {
       '/api': {
