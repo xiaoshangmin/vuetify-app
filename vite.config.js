@@ -14,6 +14,13 @@ export default defineConfig({
   },
   server: {
     // 修改端口
-    port: 8888
+    port: 8888,
+    proxy: {
+      '/api': {
+        target: "http://127.0.0.1:9501/",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   }
 })

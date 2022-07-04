@@ -12,13 +12,13 @@
         </div>
       </div>
       <router-view />
-      <v-footer class="bg-grey-lighten-1" elevation="10">
+      <v-footer class="bg-grey-lighten-1 footer" app>
         <v-row justify="center" no-gutters>
           <v-btn v-for="link in links" :key="link" color="white" variant="text" class="mx-2" rounded="xl">
             {{ link }}
           </v-btn>
           <v-col class="text-center text-white mt-4" cols="12">
-            {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+            {{ new Date().getFullYear() }} — <strong>握游科技</strong>
           </v-col>
         </v-row>
       </v-footer>
@@ -26,17 +26,18 @@
   </v-app>
 </template>
 
-<script> 
+<script>
 export default {
   name: 'App',
 
   data: () => ({
     links: [
-            'Dashboard',
-            'Messages',
-            'Profile',
-            'Updates',
-        ],
+      'Dashboard',
+      'Messages',
+      'Profile',
+      'Updates',
+    ],
   }),
 }
 </script>
+
