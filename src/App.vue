@@ -35,32 +35,32 @@ export default {
       'Updates',
     ],
   }),
-  created() {
-    const ws = new WebSocket('ws://localhost:9503/');
-    // 监听ws事件
-    ws.addEventListener("open", handleOpen);
-    ws.addEventListener("error", handleError);
-    ws.addEventListener("close", handleClose);
-    ws.addEventListener("message", handleMessage);
-    function handleOpen(e) {
-      console.log("ws is opening....");
-    }
+  // created() {
+  //   const ws = new WebSocket('ws://localhost:9503/');
+  //   // 监听ws事件
+  //   ws.addEventListener("open", handleOpen);
+  //   ws.addEventListener("error", handleError);
+  //   ws.addEventListener("close", handleClose);
+  //   ws.addEventListener("message", handleMessage);
+  //   function handleOpen(e) {
+  //     console.log("ws is opening....");
+  //   }
 
-    function handleError(e) {
-      console.log("ws is error....");
-    }
+  //   function handleError(e) {
+  //     console.log("ws is error....");
+  //   }
 
-    function handleClose(e) {
-      console.log("ws is closing....");
-    }
+  //   function handleClose(e) {
+  //     console.log("ws is closing....");
+  //   }
 
-    function handleMessage(e) {
-      console.log("ws:",e.data)
-    }
-    function sendMsg(msg) {
-      ws.send(JSON.stringify(msg))
-    } 
-  }
+  //   function handleMessage(e) {
+  //     console.log("ws:",e.data)
+  //   }
+  //   function sendMsg(msg) {
+  //     ws.send(JSON.stringify(msg))
+  //   } 
+  // }
 }
 </script>
 

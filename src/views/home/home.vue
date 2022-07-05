@@ -11,7 +11,7 @@
             </v-col>
             <v-col cols="10">
                 <v-row justify="center">
-                    <v-btn depressed color="primary" elevation="2" @click="pdfToPic" loading>
+                    <v-btn depressed color="primary" elevation="2" @click="pdfToPic">
                         上传
                     </v-btn>
                 </v-row>
@@ -40,10 +40,14 @@ export default {
     created() {
     },
     methods: {
-        pdfToPic() { 
+        pdfToPic() {
+            this.$socket.sendSock('{"123456789"}', (res) => {
+                console.log('sendSocfdsafdsafdk', res)
+            });
             let file = this.files[0];//拿到上传的file
             let param = new FormData();//创建form对象
             param.append("file", file);//为创建的form对象增加上传的文件 
+            param.append('merge', this.merge);
             let config = { headers: { "Content-Type": "multipart/form-data" } }//修改请求头   
             this.$http.post("/api/upload", param, config).then((res) => {
                 console.log(res);
