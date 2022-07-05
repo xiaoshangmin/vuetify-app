@@ -5,7 +5,7 @@ import axios from 'axios'
 import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import { loadFonts } from './plugins/webfontloader'
-import router from './router'
+import router from './router' 
 
 axios.defaults.timeout = 10000;
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';

@@ -2,7 +2,7 @@
     <v-container>
         <v-row justify="center">
             <v-col cols="6">
-                <v-file-input show-size counter accept=".pdf" label="pdf文件" :rules="rules" prepend-icon="mdi-file"
+                <v-file-input show-size counter accept=".pdf" label="点击上传pdf文件" :rules="rules" prepend-icon="mdi-file"
                     v-model="files">
                 </v-file-input>
             </v-col>
@@ -11,7 +11,7 @@
             </v-col>
             <v-col cols="10">
                 <v-row justify="center">
-                    <v-btn depressed color="primary" elevation="2" @click="pdfToPic">
+                    <v-btn depressed color="primary" elevation="2" @click="pdfToPic" loading>
                         上传
                     </v-btn>
                 </v-row>
