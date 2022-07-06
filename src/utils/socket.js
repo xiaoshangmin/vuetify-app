@@ -1,5 +1,5 @@
-var websock = null;
-var global_callback = (res) => {
+let ws = null;
+let globalCallback = (res) => {
     console.log(res)
 };
 var serverPort = '5000';	//webSocket连接端口
@@ -14,61 +14,64 @@ function initWebSocket() { //初始化weosocket
     //ws地址
     // var wsuri = "ws://" + getWebIP() + ":" + serverPort;
     var wsuri = "ws://localhost:9503";
-    websock = new WebSocket(wsuri);
-    websock.onmessage = function (e) {
-        websocketonmessage(e);
+    ws = new WebSocket(wsuri);
+    ws.onmessage = function (e) {
+        handleMessage(e);
     }
-    websock.onclose = function (e) {
-        websocketclose(e);
+    ws.onClose = function (e) {
+        handleClose(e);
     }
-    websock.onopen = function () {
-        websocketOpen();
+    ws.onopen = function () {
+        handleOpen();
     }
 
     //连接发生错误的回调方法
-    websock.onerror = function () {
+    ws.onerror = function () {
         console.log("WebSocket连接发生错误");
     }
 }
 
 // 实际调用的方法
-function sendSock(agentData, callback) {
-    global_callback = callback; 
-    if (websock.readyState === websock.OPEN) {
+function sendMsg(data) {
+    if (ws.readyState === ws.OPEN) {
         //若是ws开启状态
-        websocketsend(agentData)
-    } else if (websock.readyState === websock.CONNECTING) {
+        websocketsend(data)
+    } else if (ws.readyState === ws.CONNECTING) {
         // 若是 正在开启状态，则等待1s后重新调用
         setTimeout(function () {
-            sendSock(agentData, callback);
+            sendMsg(data);
         }, 1000);
     } else {
         // 若未开启 ，则等待1s后重新调用
         setTimeout(function () {
-            sendSock(agentData, callback);
+            sendMsg(data);
         }, 1000);
     }
 }
 
+function getMsg(callback) {
+    globalCallback = callback;
+}
+
 //数据接收
-function websocketonmessage(e) {
-    global_callback(e.data);
+function handleMessage(e) {
+    globalCallback(e.data);
 }
 
 //数据发送
 function websocketsend(agentData) {
-    websock.send(JSON.stringify(agentData));
+    ws.send(JSON.stringify(agentData));
 }
 
 //关闭
-function websocketclose(e) {
-    console.log("connection closed (" + e.code + ")");
+function handleClose(e) {
+    console.log("connection closed", e.code);
 }
 
-function websocketOpen(e) {
-    console.log("连接成功");
+function handleOpen(e) {
+    console.log("连接成功", e);
 }
 
 initWebSocket();
 
-export { sendSock }
+export { sendMsg, getMsg }

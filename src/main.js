@@ -10,8 +10,11 @@ import * as socketApi from './utils/socket'
 
 axios.defaults.timeout = 10000;
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-axios.defaults.baseURL = 'http://127.0.0.1:9501/' 
-
+if (process.env.NODE_ENV == 'production') {
+	axios.defaults.baseURL = 'https://wowyou.cc/api/'
+} else {
+	axios.defaults.baseURL = 'http://127.0.0.1:9501/'
+}   
 loadFonts()
 
 const app = createApp(App)

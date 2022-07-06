@@ -9,12 +9,12 @@
         </div>
       </div>
       <router-view />
-      <v-footer class="bg-grey-lighten-1 footer" app>
+      <v-footer padless app>
         <v-row justify="center" no-gutters>
-          <v-btn v-for="link in links" :key="link" color="white" variant="text" class="mx-2" rounded="xl">
+          <!-- <v-btn v-for="link in links" :key="link" color="white" variant="text" class="mx-2" rounded="xl">
             {{ link }}
-          </v-btn>
-          <v-col class="text-center text-white mt-4" cols="12">
+          </v-btn> -->
+          <v-col class="text-center  mt-4" cols="12">
             {{ new Date().getFullYear() }} — <strong>握游科技</strong>
           </v-col>
         </v-row>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { uuid } from '@/utils/utils'
 export default {
   name: 'App',
 
@@ -35,32 +36,40 @@ export default {
       'Updates',
     ],
   }),
-  // created() {
-  //   const ws = new WebSocket('ws://localhost:9503/');
-  //   // 监听ws事件
-  //   ws.addEventListener("open", handleOpen);
-  //   ws.addEventListener("error", handleError);
-  //   ws.addEventListener("close", handleClose);
-  //   ws.addEventListener("message", handleMessage);
-  //   function handleOpen(e) {
-  //     console.log("ws is opening....");
-  //   }
-
-  //   function handleError(e) {
-  //     console.log("ws is error....");
-  //   }
-
-  //   function handleClose(e) {
-  //     console.log("ws is closing....");
-  //   }
-
-  //   function handleMessage(e) {
-  //     console.log("ws:",e.data)
-  //   }
-  //   function sendMsg(msg) {
-  //     ws.send(JSON.stringify(msg))
-  //   } 
-  // }
+  created() {
+    let uid = localStorage.getItem("uid")
+    if (!uid) {
+      uid = uuid();
+    }
+    localStorage.setItem('uid', uid)
+    //http request 拦截器
+    this.$http.interceptors.request.use(
+      config => {
+        if (uuid) {
+          // 判断是否存在token，如果存在的话，则每个http header都加上token
+          config.headers.auth = `${uuid}`;
+        }
+        return config;
+      },
+      err => {
+        return Promise.reject(err);
+      }
+    );
+    //http response 拦截器
+    this.$http.interceptors.response.use(
+      response => {
+        if (response.data) {
+          if (401 == response.data.code) {
+            return;
+          }
+        }
+        return response;
+      },
+      err => {
+        return Promise.reject(err);
+      }
+    );
+  }
 }
 </script>
 
