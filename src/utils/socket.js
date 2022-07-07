@@ -1,4 +1,6 @@
+import { uuid } from '@/utils/utils'
 let ws = null;
+let timer = null
 let globalCallback = (res) => {
     console.log(res)
 };
@@ -66,10 +68,25 @@ function websocketsend(agentData) {
 //关闭
 function handleClose(e) {
     console.log("connection closed", e.code);
+    //重连
+    // initWebSocket()
 }
 
 function handleOpen(e) {
     console.log("连接成功", e);
+    let data = {
+        key: localStorage.getItem('uid') || uuid()
+    }
+    ws.send(JSON.stringify(data));
+    //每30秒发送一次消息
+    timer = setInterval(res => {
+        if (ws.readyState == ws.CLOSED) {
+            clearInterval(timer)
+            alert(" 与服务器连接建立失败  处理结果无法及时接收，请刷新页面重试")
+            return
+        }
+        ws.send(1);
+    }, 15000)
 }
 
 initWebSocket();

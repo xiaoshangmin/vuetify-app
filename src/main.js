@@ -13,7 +13,7 @@ axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 if (process.env.NODE_ENV == 'production') {
 	axios.defaults.baseURL = 'https://wowyou.cc/api/'
 } else {
-	axios.defaults.baseURL = 'http://127.0.0.1:9501/'
+	axios.defaults.baseURL = 'http://localhost:9501/'
 }   
 loadFonts()
 

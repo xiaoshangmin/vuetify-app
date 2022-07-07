@@ -14,7 +14,7 @@
                 <v-card :loading="loading" max-width="1400">
                     <v-progress-linear v-if="loading" class="position-absolute" style="z-index: 1"
                         color="pink lighten-3" height="8" indeterminate rounded striped></v-progress-linear>
-                    <v-img class="align-end text-white" height="200" src="https://oss.wowyou.cc/misc/G2frdJKkYV9A.jpg"
+                    <v-img class="align-end text-white" height="200" src="https://oss.wowyou.cc/misc/pdf-header.jpg"
                         cover>
                     </v-img>
                     <v-card-text>
@@ -55,7 +55,7 @@ export default {
     data: () => ({
         snackbar: false,
         text: '',
-        timeout: 1500,
+        timeout: 2000,
         loading: false,
         merge: false,
         disabled: false,
@@ -79,10 +79,9 @@ export default {
                 return;
             }
             this.changeBtnStatus()
-            this.snackbar = !this.snackbar
             this.$socket.getMsg((res) => {
                 console.log("getMsg", res)
-            })  
+            })
             let file = this.files[0];//拿到上传的file
             let param = new FormData();//创建form对象
             param.append("file", file);//为创建的form对象增加上传的文件 
@@ -95,8 +94,9 @@ export default {
                 }
             }//请求头和上传进度
             this.$http.post("/api/upload", param, config).then((res) => {
-                console.log(res);
-                if (res.data.code) {
+                console.log(res.data);
+                if (res.data.code) { 
+                    this.snackbar = !this.snackbar
                     this.text = "文件上传成功，正在转换请稍等片刻";
                 }
                 this.changeBtnStatus()

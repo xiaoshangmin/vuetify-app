@@ -45,9 +45,9 @@ export default {
     //http request 拦截器
     this.$http.interceptors.request.use(
       config => {
-        if (uuid) {
+        if (uid) {
           // 判断是否存在token，如果存在的话，则每个http header都加上token
-          config.headers.auth = `${uuid}`;
+          config.headers.Auth = `${uid}`;
         }
         return config;
       },
