@@ -1,4 +1,5 @@
-import { uuid } from '@/utils/utils'
+import {uuid} from '@/utils/utils'
+
 let ws = null;
 let timer = null
 let globalCallback = (res) => {
@@ -16,7 +17,7 @@ function initWebSocket() { //初始化weosocket
     //ws地址
     // var wsuri = "ws://" + getWebIP() + ":" + serverPort; 
     let key = localStorage.getItem('uid') || uuid()
-    var wsuri = "ws://localhost:9503/?key=" + key;
+    var wsuri = import.meta.env.VITE_API_BASE_WEBSOCKET_SERVER + "/?key=" + key;
     ws = new WebSocket(wsuri);
     ws.onmessage = function (e) {
         handleMessage(e);
@@ -89,4 +90,4 @@ function handleOpen(e) {
 
 initWebSocket();
 
-export { sendMsg, getMsg }
+export {sendMsg, getMsg}

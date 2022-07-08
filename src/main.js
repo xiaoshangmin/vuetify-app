@@ -10,11 +10,10 @@ import * as socketApi from './utils/socket'
 
 axios.defaults.timeout = 10000;
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-if (process.env.NODE_ENV == 'production') {
-	axios.defaults.baseURL = 'https://wowyou.cc/api/'
-} else {
-	axios.defaults.baseURL = 'http://localhost:9501/'
-}   
+console.log(123,import.meta.env.VITE_API_BASE_URL)
+
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL
+
 loadFonts()
 
 const app = createApp(App)
