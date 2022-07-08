@@ -14,8 +14,9 @@ function getWebIP() {
 
 function initWebSocket() { //初始化weosocket
     //ws地址
-    // var wsuri = "ws://" + getWebIP() + ":" + serverPort;
-    var wsuri = "ws://localhost:9503";
+    // var wsuri = "ws://" + getWebIP() + ":" + serverPort; 
+    let key = localStorage.getItem('uid') || uuid()
+    var wsuri = "ws://localhost:9503/?key=" + key;
     ws = new WebSocket(wsuri);
     ws.onmessage = function (e) {
         handleMessage(e);
@@ -57,7 +58,8 @@ function getMsg(callback) {
 
 //数据接收
 function handleMessage(e) {
-    globalCallback(e.data);
+    let data = JSON.parse(e.data)
+    globalCallback(data);
 }
 
 //数据发送
@@ -74,10 +76,6 @@ function handleClose(e) {
 
 function handleOpen(e) {
     console.log("连接成功", e);
-    let data = {
-        key: localStorage.getItem('uid') || uuid()
-    }
-    ws.send(JSON.stringify(data));
     //每30秒发送一次消息
     timer = setInterval(res => {
         if (ws.readyState == ws.CLOSED) {
