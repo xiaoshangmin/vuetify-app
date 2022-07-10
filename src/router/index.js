@@ -3,8 +3,17 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: () => import('@/views/home/home.vue'),
+    name: 'pdf',
+    component: () => import('@/views/pdf/pdf.vue'),
+    meta: {
+      tabCloseable: false,
+      tabLabel: '首页'
+    }
+  },
+  {
+    path: '/',
+    name: 'pinyin',
+    component: () => import('@/views/pinyin/pinyin.vue'),
     meta: {
       tabCloseable: false,
       tabLabel: '首页'

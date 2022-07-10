@@ -108,8 +108,6 @@ export default {
       this.loading = true
       this.disabled = true
       this.$socket.getMsg((res) => {
-        console.log(res)
-        console.log(typeof res)
         if (typeof res === 'object') {
           if (res.result) {
             this.loading = false
