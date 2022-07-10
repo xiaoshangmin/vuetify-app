@@ -132,7 +132,7 @@ export default {
           console.log(complete)
         }
       }//请求头和上传进度
-      this.$http.post("/api/upload", param, config).then((res) => {
+      this.$http.post("/api/pdfToPic/upload", param, config).then((res) => {
         console.log(res.data);
         if (res.data.code) {
           this.text = "文件上传成功，正在转换请稍等片刻";
