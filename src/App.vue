@@ -9,6 +9,9 @@
           <v-btn class="ma-2 pa-2" color="white" variant="text">
             <router-link :to="{name:'pinyin'}">中文转拼音</router-link>
           </v-btn>
+          <v-btn class="ma-2 pa-2" color="white" variant="text">
+            <router-link :to="{name:'office'}">WORD转PDF</router-link>
+          </v-btn>
         </div>
       </div>
       <router-view/>

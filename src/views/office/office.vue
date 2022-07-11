@@ -19,17 +19,10 @@
           <v-card-text>
             <v-row justify="center">
               <v-col md="8" sm="12" lg="8">
-                <v-file-input show-size counter accept=".pdf" label="选择pdf文件" :rules="rules" prepend-icon=""
+                <v-file-input show-size counter accept=".doc,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" label="选择word文件" :rules="rules" prepend-icon=""
                               append-inner-icon="mdi-file" v-model="files" :disabled="disabled">
                 </v-file-input>
               </v-col>
-            </v-row>
-            <v-row justify="center">
-              <v-col cols="2">
-                <v-switch v-model="merge" label="拼接图片" color="red" value="true">
-                </v-switch>
-              </v-col>
-              <v-col md="6" sm="10" lg="6"></v-col>
             </v-row>
             <v-row v-if="finish" justify="center">
               <v-divider
@@ -61,7 +54,7 @@
             <v-row>
               <v-col cols="12">
                 <v-row justify="center">
-                  <v-btn append-icon="mdi-cloud-upload" elevation="2" color="#eb5d4c" @click="pdfToPic"
+                  <v-btn append-icon="mdi-cloud-upload" elevation="2" color="#2fa59a" @click="postOffice"
                          :disabled="disabled">
                     上传并转换
                   </v-btn>
@@ -86,7 +79,6 @@ export default {
     text: '',
     timeout: 2000,
     loading: false,
-    merge: false,
     disabled: false,
     files: [],
     info: {},
@@ -99,7 +91,7 @@ export default {
     ],
   }),
   methods: {
-    pdfToPic() {
+    postOffice() {
       if (this.files.length == 0) {
         this.text = "请选择需要转换的文件"
         this.snackbar = !this.snackbar
@@ -122,7 +114,6 @@ export default {
       let file = this.files[0];//拿到上传的file
       let param = new FormData();//创建form对象
       param.append("file", file);//为创建的form对象增加上传的文件
-      param.append('merge', this.merge);
       let config = {
         headers: {"Content-Type": "multipart/form-data"},
         onUploadProgress: event => {
@@ -130,7 +121,7 @@ export default {
           console.log(complete)
         }
       }//请求头和上传进度
-      this.$http.post("/api/pdfToPic/upload", param, config).then((res) => {
+      this.$http.post("/api/office/upload", param, config).then((res) => {
         console.log(res.data);
         if (res.data.code) {
           this.text = "文件上传成功，正在转换请稍等片刻";
@@ -151,6 +142,6 @@ export default {
 .footer {
   -webkit-transition: background .5s ease-in;
   transition: background .5s ease-in;
-  background: linear-gradient(46deg, #e85846, #ff8170);
+  background: linear-gradient(135deg,#1d978f,#7ddecb);
 }
 </style>

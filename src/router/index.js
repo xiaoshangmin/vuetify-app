@@ -19,6 +19,15 @@ const routes = [
       tabLabel: '首页'
     }
   },
+  {
+    path: '/',
+    name: 'office',
+    component: () => import('@/views/office/office.vue'),
+    meta: {
+      tabCloseable: false,
+      tabLabel: '首页'
+    }
+  },
 //   ...order
 ] 
 const router = createRouter({
