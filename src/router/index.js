@@ -28,6 +28,15 @@ const routes = [
       tabLabel: '首页'
     }
   },
+  {
+    path: '/',
+    name: 'pkg',
+    component: () => import('@/views/pkg/pkg.vue'),
+    meta: {
+      tabCloseable: false,
+      tabLabel: '首页'
+    }
+  },
 //   ...order
 ] 
 const router = createRouter({
