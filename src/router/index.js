@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 // import order from './modules/order'
 const routes = [
   {
-    path: '/',
+    path: '/pdf',
     name: 'pdf',
     component: () => import('@/views/pdf/pdf.vue'),
     meta: {
@@ -11,7 +11,7 @@ const routes = [
     }
   },
   {
-    path: '/',
+    path: '/pinyin',
     name: 'pinyin',
     component: () => import('@/views/pinyin/pinyin.vue'),
     meta: {
@@ -20,7 +20,7 @@ const routes = [
     }
   },
   {
-    path: '/',
+    path: '/office',
     name: 'office',
     component: () => import('@/views/office/office.vue'),
     meta: {
@@ -29,9 +29,17 @@ const routes = [
     }
   },
   {
-    path: '/',
+    path: '/pkg',
     name: 'pkg',
     component: () => import('@/views/pkg/pkg.vue'),
+    meta: {
+      tabCloseable: false,
+      tabLabel: '首页'
+    }
+  },{
+    path: '/',
+    name: 'analysis',
+    component: () => import('@/views/analysis/analysis.vue'),
     meta: {
       tabCloseable: false,
       tabLabel: '首页'

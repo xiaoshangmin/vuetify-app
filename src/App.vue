@@ -3,7 +3,10 @@
     <v-main>
       <div class="header">
         <div class="d-flex justify-center mb-6">
-          <v-btn class="ma-2 pa-2" color="white"  variant="text">
+          <v-btn class="ma-2 pa-2" color="white" variant="text">
+            <router-link :to="{name:'analysis'}">短视频解析</router-link>
+          </v-btn>
+          <v-btn class="ma-2 pa-2" color="white" variant="text">
             <router-link :to="{name:'pdf'}">PDF转图片</router-link>
           </v-btn>
           <v-btn class="ma-2 pa-2" color="white" variant="text">
@@ -87,5 +90,12 @@ export default {
 a {
   text-decoration: none; /* 去除默认的下划线 */
   color: #ffffff; /* 去除默认的颜色和点击后变化的颜色 */
+}
+
+.header,
+.footer {
+  -webkit-transition: background .5s ease-in;
+  transition: background .5s ease-in;
+  background: linear-gradient(46deg, #e85846, #ff8170);
 }
 </style>
