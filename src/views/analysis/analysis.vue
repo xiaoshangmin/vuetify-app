@@ -24,6 +24,7 @@
                     clearable
                     label="请粘贴分享的链接或者视频url地址"
                     auto-grow
+                    hide-details
                     rows="2"
                 ></v-textarea>
               </v-col>
@@ -31,10 +32,16 @@
             <v-row justify="center">
               <v-col md="8" sm="12" lg="8">
                 <v-chip color="primary" class="ma-2">抖音</v-chip>
-                <v-chip color="primary" class="ma-2">抖音</v-chip>
-                <v-chip color="primary" class="ma-2">抖音</v-chip>
-                <v-chip color="primary" class="ma-2">抖音</v-chip>
+                <v-chip color="secondary" class="ma-2">快手</v-chip>
+                <v-chip color="red" class="ma-2">微博</v-chip>
+                <v-chip color="green" class="ma-2">哔哩哔哩</v-chip>
               </v-col>
+            </v-row>
+            <v-row justify="center">
+              <v-btn append-icon="mdi-cloud-search-outline" elevation="2" color="#ff8170" @click="analysis"
+                     :disabled="disabled">
+                开始解析
+              </v-btn>
             </v-row>
             <v-row v-if="finish" justify="center">
               <v-divider class="ma-1 pa-1"
@@ -80,18 +87,6 @@
               ></v-divider>
             </v-row>
           </v-card-text>
-          <v-card-actions>
-            <v-row>
-              <v-col cols="12">
-                <v-row justify="center">
-                  <v-btn append-icon="mdi-cloud-upload" elevation="2" color="#eb5d4c" @click="analysis"
-                         :disabled="disabled">
-                    开始解析
-                  </v-btn>
-                </v-row>
-              </v-col>
-            </v-row>
-          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>

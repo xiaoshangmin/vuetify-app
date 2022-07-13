@@ -1,11 +1,19 @@
 <template>
   <v-container>
-    <v-text-field
-        v-model="chinese" @input="onChange"
-    ></v-text-field>
-    <v-switch v-model="toneType" label="不带声调" color="red" value="true">
-    </v-switch>
-    <h1>{{ messages }}</h1>
+    <v-row justify="center">
+      <v-card :width="width">
+        <v-card-text>
+          <v-text-field label="请输入中文" clearable
+                        v-model="chinese" @input="onChange"
+          ></v-text-field>
+          <v-switch v-model="toneType" label="不带声调" color="red" value="true">
+          </v-switch>
+          <p class="font-weight-medium text-h5">
+            {{ messages }}
+          </p>
+        </v-card-text>
+      </v-card>
+    </v-row>
   </v-container>
 </template>
 
@@ -18,6 +26,22 @@ export default {
     messages: '',
     toneType: false,
   }),
+  computed: {
+    width() {
+      switch (this.$vuetify.display.name) {
+        case 'xs':
+          return '100%'
+        case 'sm':
+          return '100%'
+        case 'md':
+          return '80%'
+        case 'lg':
+          return '80%'
+        case 'xl':
+          return '50%'
+      }
+    },
+  },
   created() {
 
   },

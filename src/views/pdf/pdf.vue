@@ -33,7 +33,6 @@
             </v-row>
             <v-row v-if="finish" justify="center">
               <v-divider
-                  inset
               ></v-divider>
               <v-col cols="10">
                 <v-row justify="start" align="center">
@@ -44,16 +43,13 @@
                     {{ info.filesize }}
                   </v-col>
                   <v-col cols="2">
-                    <a :href="info.download">
-                      <v-icon>
-                        mdi-cloud-download
-                      </v-icon>
+                    <a :href="info.download" target="_blank">
+                      <v-icon icon="mdi-cloud-download"/>
                     </a>
                   </v-col>
                 </v-row>
               </v-col>
               <v-divider
-                  inset
               ></v-divider>
             </v-row>
           </v-card-text>
