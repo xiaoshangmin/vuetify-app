@@ -1,41 +1,52 @@
 <template>
   <v-app>
     <v-main>
-      <div class="header">
-        <div class="d-flex justify-center mb-6">
-
-          <router-link :to="{name:'analysis'}">
-            <v-btn class="ma-2 pa-2" color="white" variant="text">短视频解析</v-btn>
+      <v-tabs
+          class="header"
+          centered
+          dark
+          show-arrows
+      >
+        <v-tab>
+          <router-link :to="{name:'analysis'}" class="pa-2">
+            短视频解析
           </router-link>
-
-          <router-link :to="{name:'pdf'}">
-            <v-btn class="ma-2 pa-2" color="white" variant="text">PDF转图片</v-btn>
+        </v-tab>
+        <v-tab>
+          <router-link :to="{name:'pdf'}" class="pa-2">
+            PDF转图片
           </router-link>
-
-          <router-link :to="{name:'office'}">
-            <v-btn class="ma-2 pa-2" color="white" variant="text">WORD转PDF</v-btn>
+        </v-tab>
+        <v-tab>
+          <router-link :to="{name:'office'}" class="pa-2">
+            WORD转PDF
           </router-link>
-
-          <router-link :to="{name:'pinyin'}">
-            <v-btn class="ma-2 pa-2" color="white" variant="text">中文转拼音</v-btn>
+        </v-tab>
+        <v-tab>
+          <router-link :to="{name:'pinyin'}" class="pa-2">
+            中文转拼音
           </router-link>
-
-          <router-link :to="{name:'pkg'}">
-            <v-btn class="ma-2 pa-2" color="white" variant="text">国内源</v-btn>
+        </v-tab>
+        <v-tab>
+          <router-link :to="{name:'pkg'}" class="pa-2">
+            国内源
           </router-link>
-
-        </div>
-      </div>
+        </v-tab>
+      </v-tabs>
       <router-view/>
-      <v-footer app  class="text-center" color="#e85846">
-        <v-row justify="center" no-gutters>
-          <!-- <v-btn v-for="link in links" :key="link" color="white" variant="text" class="mx-2" rounded="xl">
-            {{ link }}
-          </v-btn> -->
-          <v-col class="text-center  mt-4" cols="12">
-            {{ new Date().getFullYear() }} — <strong>握游科技</strong>
-          </v-col>
-        </v-row>
+      <v-footer
+          app
+          class="footer text-white text-center d-flex flex-column"
+      >
+        <div class="text-white pt-0">
+          Make By Love
+        </div>
+
+        <v-divider></v-divider>
+
+        <div class="text-white">
+          {{ new Date().getFullYear() }} — <strong>wowyou</strong>
+        </div>
       </v-footer>
     </v-main>
   </v-app>

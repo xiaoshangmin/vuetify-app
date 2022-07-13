@@ -10,12 +10,7 @@
     </v-snackbar>
     <v-row justify="center">
       <v-col md="12" sm="12" lg="10">
-        <v-card :loading="loading" max-width="1400">
-          <v-progress-linear v-if="loading" class="position-absolute" style="z-index: 1"
-                             color="pink lighten-3" height="8" indeterminate rounded striped></v-progress-linear>
-          <v-img class="align-end text-white" height="200" src="https://oss.wowyou.cc/misc/pdf-header.jpg"
-                 cover>
-          </v-img>
+        <v-card max-width="1400">
           <v-card-text>
             <v-row justify="center">
               <v-col md="8" sm="12" lg="8">
@@ -39,7 +34,7 @@
             </v-row>
             <v-row justify="center">
               <v-btn append-icon="mdi-cloud-search-outline" elevation="2" color="#ff8170" @click="analysis"
-                     :disabled="disabled">
+                     :disabled="disabled" :loading="loading">
                 开始解析
               </v-btn>
             </v-row>
