@@ -7,7 +7,7 @@
           关闭
         </v-btn>
       </template>
-    </v-snackbar>
+    </v-snackbar> 
     <v-row justify="center">
       <v-col md="12" sm="12" lg="10">
         <v-card :loading="loading" max-width="1400">
@@ -73,8 +73,7 @@
 </template>
 
 <script>
-import {filesize} from '@/utils/utils'
-import {calendar} from '@/utils/calendar'
+import {filesize} from '@/utils/utils' 
 
 export default {
   data: () => ({
@@ -94,11 +93,7 @@ export default {
         return !value || !value.length || value[0].size < 5243000 || '文件大小不能超过5 MB!'
       },
     ],
-  }),
-  created() {
-    let a = JSON.stringify(calendar.solar2lunar(1987, 11, 1), null, 4);
-    console.log(a)
-  },
+  }), 
   methods: {
     pdfToPic() {
       if (this.files.length == 0) {
