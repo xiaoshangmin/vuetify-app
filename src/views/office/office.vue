@@ -11,22 +11,22 @@
     <v-row justify="center">
       <v-col md="12" sm="12" lg="10">
         <v-card :loading="loading" max-width="1400">
-          <v-progress-linear v-if="loading" class="position-absolute" style="z-index: 1"
-                             color="pink lighten-3" height="8" indeterminate rounded striped></v-progress-linear>
-          <v-img class="align-end text-white" height="200" src="https://oss.wowyou.cc/misc/pdf-header.jpg"
-                 cover>
+          <v-progress-linear v-if="loading" class="position-absolute" style="z-index: 1" color="pink lighten-3"
+            height="8" indeterminate rounded striped></v-progress-linear>
+          <v-img class="align-end text-white" height="200" src="https://oss.wowyou.cc/misc/pdf-header.jpg" cover>
           </v-img>
           <v-card-text>
             <v-row justify="center">
               <v-col md="8" sm="12" lg="8">
-                <v-file-input show-size counter accept=".doc,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" label="选择word文件" :rules="rules" prepend-icon=""
-                              append-inner-icon="mdi-file" v-model="files" :disabled="disabled">
+                <v-file-input show-size counter
+                  accept=".doc,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  label="选择word文件" :rules="rules" prepend-icon="" append-inner-icon="mdi-file" v-model="files"
+                  :disabled="disabled">
                 </v-file-input>
               </v-col>
             </v-row>
             <v-row v-if="finish" justify="center">
-              <v-divider
-              ></v-divider>
+              <v-divider></v-divider>
               <v-col cols="10">
                 <v-row justify="start" align="center">
                   <v-col cols="8">
@@ -37,13 +37,12 @@
                   </v-col>
                   <v-col cols="2">
                     <a :href="info.download" target="_blank">
-                      <v-icon icon="mdi-cloud-download"/>
+                      <v-icon icon="mdi-cloud-download" />
                     </a>
                   </v-col>
                 </v-row>
               </v-col>
-              <v-divider
-              ></v-divider>
+              <v-divider></v-divider>
             </v-row>
           </v-card-text>
           <v-card-actions>
@@ -51,7 +50,7 @@
               <v-col cols="12">
                 <v-row justify="center">
                   <v-btn append-icon="mdi-cloud-upload" elevation="2" color="#2fa59a" @click="postOffice"
-                         :disabled="disabled">
+                    :disabled="disabled">
                     上传并转换
                   </v-btn>
                 </v-row>
@@ -66,7 +65,7 @@
 </template>
 
 <script>
-import {filesize} from '@/utils/utils'
+import { filesize } from '@/utils/utils'
 
 export default {
   data: () => ({
@@ -93,6 +92,13 @@ export default {
         this.snackbar = !this.snackbar
         return;
       }
+      //TODO 批量处理
+      let file = this.files[0];//拿到上传的file
+      if (file.size > 5243000) {
+        this.text = "文件大小不能超过5 MB!"
+        this.snackbar = !this.snackbar
+        return;
+      }
       this.loading = true
       this.disabled = true
       this.$socket.getMsg((res) => {
@@ -106,12 +112,10 @@ export default {
           }
         }
       })
-      //TODO 批量处理
-      let file = this.files[0];//拿到上传的file
       let param = new FormData();//创建form对象
       param.append("file", file);//为创建的form对象增加上传的文件
       let config = {
-        headers: {"Content-Type": "multipart/form-data"},
+        headers: { "Content-Type": "multipart/form-data" },
         onUploadProgress: event => {
           let complete = (event.loaded / event.total * 100 | 0) + '%'
           console.log(complete)
@@ -138,6 +142,6 @@ export default {
 .footer {
   -webkit-transition: background .5s ease-in;
   transition: background .5s ease-in;
-  background: linear-gradient(135deg,#1d978f,#7ddecb);
+  background: linear-gradient(135deg, #1d978f, #7ddecb);
 }
 </style>

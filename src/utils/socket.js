@@ -3,7 +3,7 @@ import {uuid} from '@/utils/utils'
 let ws = null;
 let timer = null
 let globalCallback = (res) => {
-    console.log(res)
+    // console.log(res)
 };
 var serverPort = '5000';	//webSocket连接端口
 

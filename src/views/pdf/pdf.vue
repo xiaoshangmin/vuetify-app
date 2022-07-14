@@ -7,20 +7,19 @@
           关闭
         </v-btn>
       </template>
-    </v-snackbar> 
+    </v-snackbar>
     <v-row justify="center">
       <v-col md="12" sm="12" lg="10">
         <v-card :loading="loading" max-width="1400">
-          <v-progress-linear v-if="loading" class="position-absolute" style="z-index: 1"
-                             color="pink lighten-3" height="8" indeterminate rounded striped></v-progress-linear>
-          <v-img class="align-end text-white" height="200" src="https://oss.wowyou.cc/misc/pdf-header.jpg"
-                 cover>
+          <v-progress-linear v-if="loading" class="position-absolute" style="z-index: 1" color="pink lighten-3"
+            height="8" indeterminate rounded striped></v-progress-linear>
+          <v-img class="align-end text-white" height="200" src="https://oss.wowyou.cc/misc/pdf-header.jpg" cover>
           </v-img>
           <v-card-text>
             <v-row justify="center">
               <v-col md="8" sm="12" lg="8">
                 <v-file-input show-size counter accept=".pdf" label="选择pdf文件" :rules="rules" prepend-icon=""
-                              append-inner-icon="mdi-file" v-model="files" :disabled="disabled">
+                  append-inner-icon="mdi-file" v-model="files" :disabled="disabled">
                 </v-file-input>
               </v-col>
             </v-row>
@@ -32,8 +31,7 @@
               <v-col md="6" sm="10" lg="6"></v-col>
             </v-row>
             <v-row v-if="finish" justify="center">
-              <v-divider
-              ></v-divider>
+              <v-divider></v-divider>
               <v-col cols="10">
                 <v-row justify="start" align="center">
                   <v-col cols="8">
@@ -44,13 +42,12 @@
                   </v-col>
                   <v-col cols="2">
                     <a :href="info.download" target="_blank">
-                      <v-icon icon="mdi-cloud-download"/>
+                      <v-icon icon="mdi-cloud-download" />
                     </a>
                   </v-col>
                 </v-row>
               </v-col>
-              <v-divider
-              ></v-divider>
+              <v-divider></v-divider>
             </v-row>
           </v-card-text>
           <v-card-actions>
@@ -58,7 +55,7 @@
               <v-col cols="12">
                 <v-row justify="center">
                   <v-btn append-icon="mdi-cloud-upload" elevation="2" color="#eb5d4c" @click="pdfToPic"
-                         :disabled="disabled">
+                    :disabled="disabled">
                     上传并转换
                   </v-btn>
                 </v-row>
@@ -73,7 +70,7 @@
 </template>
 
 <script>
-import {filesize} from '@/utils/utils' 
+import { filesize } from '@/utils/utils'
 
 export default {
   data: () => ({
@@ -93,11 +90,19 @@ export default {
         return !value || !value.length || value[0].size < 5243000 || '文件大小不能超过5 MB!'
       },
     ],
-  }), 
+  }),
   methods: {
     pdfToPic() {
+      console.log('aaa', this.files)
       if (this.files.length == 0) {
         this.text = "请选择需要转换的文件"
+        this.snackbar = !this.snackbar
+        return;
+      } 
+      //TODO 批量处理
+      let file = this.files[0];//拿到上传的file
+      if (file.size > 5243000) {
+        this.text = "文件大小不能超过5 MB!"
         this.snackbar = !this.snackbar
         return;
       }
@@ -114,13 +119,11 @@ export default {
           }
         }
       })
-      //TODO 批量处理
-      let file = this.files[0];//拿到上传的file
       let param = new FormData();//创建form对象
       param.append("file", file);//为创建的form对象增加上传的文件
       param.append('merge', this.merge);
       let config = {
-        headers: {"Content-Type": "multipart/form-data"},
+        headers: { "Content-Type": "multipart/form-data" },
         onUploadProgress: event => {
           let complete = (event.loaded / event.total * 100 | 0) + '%'
           console.log(complete)
