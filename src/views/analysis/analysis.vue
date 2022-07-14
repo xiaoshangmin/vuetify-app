@@ -105,15 +105,14 @@ export default {
   },
   methods: {
     analysis() {
-      this.loading = true
-      this.disabled = true
       const url = /http[s]?:\/\/([\w./-]+)\??[\w=&:.\-+%]*[/]*/.exec(this.url);
-
       if (url == null) {
         this.text = '复制的文案或者链接错误'
         this.snackbar = !this.snackbar
         return;
       }
+      this.loading = true
+      this.disabled = true
       //TODO 批量处理
       let param = {
         url: url[0]
