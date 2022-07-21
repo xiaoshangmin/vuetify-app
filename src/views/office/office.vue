@@ -123,8 +123,11 @@ export default {
       }//请求头和上传进度
       this.$http.post("/api/office/upload", param, config).then((res) => {
         console.log(res.data);
-        if (res.data.code) {
+        if (1 == res.data.code) {
           this.text = "文件上传成功，正在转换请稍等片刻";
+          this.snackbar = !this.snackbar
+        }else{
+          this.text = res.data.message;
           this.snackbar = !this.snackbar
         }
       }).catch((res) => {
