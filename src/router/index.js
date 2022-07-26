@@ -52,6 +52,14 @@ const routes = [
       tabCloseable: false,
       tabLabel: '首页'
     }
+  }, {
+    path: '/timestamp',
+    name: 'timestamp',
+    component: () => import('@/views/timestamp/timestamp.vue'),
+    meta: {
+      tabCloseable: false,
+      tabLabel: '首页'
+    }
   },
   //   ...order
 ]

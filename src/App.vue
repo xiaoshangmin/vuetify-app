@@ -37,6 +37,11 @@
             格式JSON
           </router-link>
         </v-tab>
+        <v-tab>
+          <router-link :to="{name:'timestamp'}" class="pa-2">
+            时间戳转换
+          </router-link>
+        </v-tab>
       </v-tabs>
       <router-view/>
       <v-footer
