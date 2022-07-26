@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router' 
+import { createRouter, createWebHashHistory } from 'vue-router'
 // import order from './modules/order'
 const routes = [
   {
@@ -36,7 +36,7 @@ const routes = [
       tabCloseable: false,
       tabLabel: '首页'
     }
-  },{
+  }, {
     path: '/',
     name: 'analysis',
     component: () => import('@/views/analysis/analysis.vue'),
@@ -44,9 +44,17 @@ const routes = [
       tabCloseable: false,
       tabLabel: '首页'
     }
+  }, {
+    path: '/json',
+    name: 'json',
+    component: () => import('@/views/jsonview/jsonview.vue'),
+    meta: {
+      tabCloseable: false,
+      tabLabel: '首页'
+    }
   },
-//   ...order
-] 
+  //   ...order
+]
 const router = createRouter({
   history: createWebHashHistory(),
   routes
