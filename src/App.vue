@@ -32,7 +32,7 @@
             国内源
           </router-link>
         </v-tab>
-         <v-tab>
+        <v-tab>
           <router-link :to="{name:'json'}" class="pa-2">
             格式JSON
           </router-link>
@@ -44,20 +44,31 @@
         </v-tab>
       </v-tabs>
       <router-view/>
+
+
       <v-footer
           app
-          class="footer text-white text-center d-flex flex-column"
+          class="bg-indigo-lighten-1 text-white text-center d-flex flex-column"
       >
-        <div class="text-white pt-0">
-          Make By Love
+        <div class="d-flex">
+          <v-btn
+              v-for="icon in icons"
+              :key="icon"
+              class="mx-4 text-white"
+              :icon="icon"
+              variant="text"
+          ></v-btn>
         </div>
-
         <v-divider></v-divider>
 
         <div class="text-white">
-          {{ new Date().getFullYear() }} — <strong>wowyou</strong>
+          {{ new Date().getFullYear() }} — <strong>Wowyou</strong> Make By Love
+          <v-icon size="x-small" color="red darken-2">
+            mdi-heart
+          </v-icon>
         </div>
       </v-footer>
+
     </v-main>
   </v-app>
 </template>
@@ -69,11 +80,11 @@ export default {
   name: 'App',
 
   data: () => ({
-    links: [
-      'Dashboard',
-      'Messages',
-      'Profile',
-      'Updates',
+    icons: [
+      'mdi-wechat',
+      'mdi-qqchat',
+      'mdi-sina-weibo',
+      'mdi-instagram',
     ],
   }),
   created() {
@@ -118,8 +129,7 @@ a {
   color: #ffffff; /* 去除默认的颜色和点击后变化的颜色 */
 }
 
-.header,
-.footer {
+.header {
   -webkit-transition: background .5s ease-in;
   transition: background .5s ease-in;
   background: linear-gradient(46deg, #e85846, #ff8170);

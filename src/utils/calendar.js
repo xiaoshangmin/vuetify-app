@@ -1,7 +1,7 @@
 /**
  * https://www.hko.gov.hk/tc/gts/time/conversion1_text.htm#
  */
-export const calendar = {
+export default {
 
     /**
      * 农历1900-2100的润大小信息表
