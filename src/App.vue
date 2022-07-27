@@ -7,40 +7,26 @@
           dark
           show-arrows
       >
-        <v-tab>
-          <router-link :to="{name:'analysis'}" class="pa-2">
-            短视频解析
-          </router-link>
+        <v-tab :to="{name:'analysis'}">
+          短视频解析
         </v-tab>
-        <v-tab>
-          <router-link :to="{name:'pdf'}" class="pa-2">
-            PDF转图片
-          </router-link>
+        <v-tab :to="{name:'pdf'}">
+          PDF转图片
         </v-tab>
-        <v-tab>
-          <router-link :to="{name:'office'}" class="pa-2">
-            WORD转PDF
-          </router-link>
+        <v-tab :to="{name:'office'}">
+          WORD转PDF
         </v-tab>
-        <v-tab>
-          <router-link :to="{name:'pinyin'}" class="pa-2">
-            中文转拼音
-          </router-link>
+        <v-tab :to="{name:'pinyin'}">
+          中文转拼音
         </v-tab>
-        <v-tab>
-          <router-link :to="{name:'pkg'}" class="pa-2">
-            国内源
-          </router-link>
+        <v-tab :to="{name:'pkg'}">
+          国内源
         </v-tab>
-        <v-tab>
-          <router-link :to="{name:'json'}" class="pa-2">
-            格式JSON
-          </router-link>
+        <v-tab :to="{name:'json'}">
+          格式JSON
         </v-tab>
-        <v-tab>
-          <router-link :to="{name:'timestamp'}" class="pa-2">
-            时间戳转换
-          </router-link>
+        <v-tab :to="{name:'timestamp'}">
+          时间戳转换
         </v-tab>
       </v-tabs>
       <router-view/>
