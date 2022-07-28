@@ -57,7 +57,6 @@ export default {
         theme: 'darcula',
         collapseIdentical: true
       })
-      CodeMirror.setSize(100, 1200);
     }
     return {
       origText,
