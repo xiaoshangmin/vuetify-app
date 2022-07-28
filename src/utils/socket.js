@@ -5,6 +5,9 @@ let timer = null
 let globalCallback = (res) => {
     // console.log(res)
 };
+let dialogCallback = (res) => {
+    alert("与服务器连接建立失败  处理结果无法及时接收，请刷新页面重试")
+}
 var serverPort = '5000';	//webSocket连接端口
 
 
@@ -35,7 +38,7 @@ function initWebSocket() { //初始化weosocket
     }
 }
 
-// 实际调用的方法
+// 发送消息实际调用的方法
 function sendMsg(data) {
     if (ws.readyState === ws.OPEN) {
         //若是ws开启状态
@@ -55,6 +58,10 @@ function sendMsg(data) {
 
 function getMsg(callback) {
     globalCallback = callback;
+}
+
+function initOpen(callback) {
+    dialogCallback = callback
 }
 
 //数据接收
@@ -81,7 +88,7 @@ function handleOpen(e) {
     timer = setInterval(res => {
         if (ws.readyState == ws.CLOSED) {
             clearInterval(timer)
-            alert(" 与服务器连接建立失败  处理结果无法及时接收，请刷新页面重试")
+            dialogCallback()
             return
         }
         ws.send(1);
@@ -90,4 +97,4 @@ function handleOpen(e) {
 
 initWebSocket();
 
-export {sendMsg, getMsg}
+export {sendMsg, getMsg, initOpen}

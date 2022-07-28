@@ -31,10 +31,35 @@
       </v-tabs>
       <router-view/>
 
+      <!--公共弹窗-->
+      <v-dialog
+          transition="dialog-bottom-transition"
+          v-model="dialog"
+          persistent
+      >
+        <v-card>
+          <v-card-title class="text-h5" >
+            温馨提示
+          </v-card-title>
+          <v-card-text>
+            与服务器连接建立失败 处理结果无法及时接收，请刷新页面重试
+          </v-card-text>
+          <v-card-actions class="justify-end">
+            <v-spacer></v-spacer>
+            <v-btn
+                text
+                color="secondary"
+                @click="refresh"
+            >刷新
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
+      <!--      底部-->
       <v-footer
           app
-          class="bg-indigo-lighten-1 text-white text-center d-flex flex-column"
+          class="bg-red-lighten-3 text-white text-center d-flex flex-column"
       >
         <div class="d-flex">
           <v-btn
@@ -66,6 +91,7 @@ export default {
   name: 'App',
 
   data: () => ({
+    dialog: false,
     icons: [
       'mdi-wechat',
       'mdi-qqchat',
@@ -106,6 +132,15 @@ export default {
           return Promise.reject(err);
         }
     );
+    this.$socket.initOpen((res) => {
+      this.dialog = true
+    })
+  },
+  methods: {
+    refresh() {
+      this.dialog = false
+      location.reload()
+    }
   }
 }
 </script>

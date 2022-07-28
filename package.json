@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
+    "@vueuse/core": "^9.0.0",
     "axios": "^0.27.2",
     "cnchar-all": "^3.2.2",
     "pinyin-pro": "^3.10.2",
