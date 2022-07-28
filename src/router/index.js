@@ -60,6 +60,14 @@ const routes = [
       tabCloseable: false,
       tabLabel: '首页'
     }
+  },{
+    path: '/codemirror',
+    name: 'codemirror',
+    component: () => import('@/views/codemirror/codemirror.vue'),
+    meta: {
+      tabCloseable: false,
+      tabLabel: '首页'
+    }
   },
   //   ...order
 ]

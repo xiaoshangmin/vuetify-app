@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <v-tabs
-          class="header"
+          class="header text-white"
           centered
           dark
           show-arrows
@@ -27,6 +27,9 @@
         </v-tab>
         <v-tab :to="{name:'timestamp'}">
           时间戳转换
+        </v-tab>
+        <v-tab :to="{name:'codemirror'}">
+          代码比对
         </v-tab>
       </v-tabs>
       <router-view/>
@@ -145,10 +148,6 @@ export default {
 }
 </script>
 <style scoped>
-a {
-  text-decoration: none; /* 去除默认的下划线 */
-  color: #ffffff; /* 去除默认的颜色和点击后变化的颜色 */
-}
 
 .header {
   -webkit-transition: background .5s ease-in;
