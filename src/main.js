@@ -8,6 +8,7 @@ import { loadFonts } from './plugins/webfontloader'
 import router from './router' 
 import * as socketApi from './utils/socket'
 import JsonViewer from 'vue-json-viewer'
+import vueQr from 'vue-qr/src/packages/index'
 
 axios.defaults.timeout = 10000;
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
@@ -18,4 +19,4 @@ loadFonts()
 const app = createApp(App)
 app.config.globalProperties.$http = axios
 app.config.globalProperties.$socket = socketApi
-app.use(router).use(vuetify).use(JsonViewer).mount('#app')
+app.use(router).use(vuetify).use(JsonViewer).use(vueQr).mount('#app')

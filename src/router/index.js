@@ -68,6 +68,14 @@ const routes = [
       tabCloseable: false,
       tabLabel: '首页'
     }
+  },{
+    path: '/qrcode',
+    name: 'qrcode',
+    component: () => import('@/views/qrcode/qrcode.vue'),
+    meta: {
+      tabCloseable: false,
+      tabLabel: '首页'
+    }
   },
   //   ...order
 ]

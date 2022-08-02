@@ -10,6 +10,9 @@
         <v-tab :to="{name:'analysis'}">
           短视频解析
         </v-tab>
+         <v-tab :to="{name:'qrcode'}">
+          二维码
+        </v-tab>
         <v-tab :to="{name:'pdf'}">
           PDF转图片
         </v-tab>

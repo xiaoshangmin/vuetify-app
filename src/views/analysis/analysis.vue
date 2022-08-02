@@ -1,11 +1,6 @@
 <template>
   <v-container>
-    <v-snackbar
-      v-model="snackbar"
-      :timeout="timeout"
-      vertical
-      location="center"
-    >
+    <v-snackbar v-model="snackbar" :timeout="timeout" vertical location="center">
       {{ text }}
       <template v-slot:actions>
         <v-btn color="blue" variant="text" @click="snackbar = false">
@@ -19,14 +14,8 @@
           <v-card-text>
             <v-row justify="center">
               <v-col md="8" sm="12" lg="8">
-                <v-textarea
-                  v-model="url"
-                  clearable
-                  label="请粘贴分享的链接或者视频url地址"
-                  auto-grow
-                  hide-details
-                  rows="2"
-                ></v-textarea>
+                <v-textarea v-model="url" clearable label="请粘贴分享的链接或者视频url地址" auto-grow hide-details rows="2">
+                </v-textarea>
               </v-col>
             </v-row>
             <v-row justify="center">
@@ -38,57 +27,27 @@
               </v-col>
             </v-row>
             <v-row justify="center">
-              <v-btn
-                append-icon="mdi-cloud-search-outline"
-                elevation="2"
-                color="#ff8170"
-                @click="analysis"
-                :disabled="disabled"
-                :loading="loading"
-              >
+              <v-btn append-icon="mdi-cloud-search-outline" elevation="2" color="#ff8170" @click="analysis"
+                :disabled="disabled" :loading="loading">
                 开始解析
               </v-btn>
             </v-row>
           </v-card-text>
-        </v-card>
+        </v-card> 
         <v-row v-if="finish" justify="center">
           <v-divider class="ma-1 pa-1"></v-divider>
           <v-col cols="10">
             <v-row justify="center" align="center">
-              <video
-                v-if="info.type == 'video'"
-                width="270"
-                height="480"
-                controls
-                autoplay
-              >
+              <video v-if="info.type == 'video'" width="270" height="480" controls autoplay>
                 <source :src="info.videoUrl" type="video/mp4" />
                 您的浏览器不支持 video 标签。
               </video>
               <v-row v-if="info.type == 'images'">
-                <v-col
-                  v-for="url in info.pics"
-                  :key="url"
-                  class="d-flex child-flex"
-                  cols="4"
-                >
-                  <v-img
-                    :src="url"
-                    :lazy-src="url"
-                    aspect-ratio="1"
-                    cover
-                    class="bg-grey-lighten-2"
-                  >
+                <v-col v-for="url in info.pics" :key="url" class="d-flex child-flex" cols="4">
+                  <v-img :src="url" :lazy-src="url" aspect-ratio="1" cover class="bg-grey-lighten-2">
                     <template v-slot:placeholder>
-                      <v-row
-                        class="fill-height ma-0"
-                        align="center"
-                        justify="center"
-                      >
-                        <v-progress-circular
-                          indeterminate
-                          color="grey-lighten-5"
-                        ></v-progress-circular>
+                      <v-row class="fill-height ma-0" align="center" justify="center">
+                        <v-progress-circular indeterminate color="grey-lighten-5"></v-progress-circular>
                       </v-row>
                     </template>
                   </v-img>
@@ -102,9 +61,9 @@
   </v-container>
 </template>
 
-<script>
+<script> 
 export default {
-  data: () => ({
+  data: () => ({ 
     finish: false,
     snackbar: false,
     text: "",
@@ -114,8 +73,8 @@ export default {
     info: {},
     url: "",
   }),
-  created() {},
-  methods: {
+  created() { },
+  methods: {  
     analysis() {
       const url = /http[s]?:\/\/([\w./-]+)\??[\w=&:.\-+%]*[/]*/.exec(this.url);
       if (url == null) {
