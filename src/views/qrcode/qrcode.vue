@@ -1,12 +1,12 @@
 <template>
     <v-container>
-        <v-row justify="center">
+        <v-row justify="center" class="mt-5">
             <v-card :width="cardWidth">
                 <v-card-text>
                     <v-row justify="center">
                         <v-col md="12" sm="12" lg="12">
-                            <v-textarea v-model="text" :rules="rules" clearable label="请输入内容" counter variant="outlined"
-                                auto-grow hide-details rows="2">
+                            <v-textarea v-model="text" :rules="[rules.required, rules.counter]" clearable label="请输入内容"
+                                counter variant="outlined" auto-grow rows="2" maxlength="300">
                             </v-textarea>
                         </v-col>
                     </v-row>
@@ -25,7 +25,7 @@
                             </v-file-input>
                         </v-col>
                         <v-col class="d-flex" cols="12" sm="6">
-                            <v-switch v-model="autoColor" label="使用背景图颜色" color="red" value="red" hide-details>
+                            <v-switch v-model="autoColor" label="使用背景图颜色" color="red" value="true" hide-details>
                             </v-switch>
                         </v-col>
                         <v-col class="d-flex" cols="12" sm="6">
@@ -34,18 +34,22 @@
                             </v-file-input>
                         </v-col>
                         <v-col class="d-flex" cols="12" sm="6">
-                            <v-text-field label="尺寸" variant="outlined" type="number" min="200" v-model="size">
+                            <v-text-field label="尺寸" variant="outlined" type="number" v-model="setSize" max="2000"
+                                :rules="[sizeValidation.max, sizeValidation.mix]">
                             </v-text-field>
                         </v-col>
                     </v-row>
-                    <v-row justify="center" class="mt-2 mb-2">
-                        <v-btn elevation="2" color="#ff8170" @click="make">
+                    <v-row justify="center" class="mt-2 mb-5">
+                        <v-btn elevation="2" color="#ff8170" @click="make" :loading="loading">
                             生成二维码
                         </v-btn>
                     </v-row>
                     <v-row justify="center" v-if="qrData">
-                        <vue-qr :text="qrData" :autoColor="autoColor" :size="size" :bgSrc="bgSrc" :gifBgSrc="gifBgSrc"
-                            :logoSrc="logoSrc" :dotScale="dotScale" :correctLevel="correctLevel"> </vue-qr>
+                        <vue-qr :text="qrData" :autoColor="autoColor" :size="size" :bgSrc="qrBgSrc"
+                            :gifBgSrc="qrGifBgSrc" :logoSrc="qrLogoSrc" :dotScale="dotScale"
+                            :correctLevel="correctLevel" :margin="5" :bindElement="false" :callback="getQrcode">
+                        </vue-qr>
+                        <v-img max-height="300" max-width="300" :src="qrcode" contain></v-img>
                     </v-row>
                 </v-card-text>
             </v-card>
@@ -66,23 +70,37 @@
 </template>
 
 <script>
+
 export default {
     data: () => ({
+        loading: false,
+        qrcode: '',
         snackbar: false,
-        msg: "请输入内容",
+        msg: "",
         dialog: false,
         correctLevel: 1,
+        setSize: 200,
         size: 200,
         dotScale: 0.5,
         logoSrc: '',
         gifBgSrc: '',
         bgSrc: '',
+        qrLogoSrc: '',
+        qrGifBgSrc: '',
+        qrBgSrc: '',
         text: '',
         qrData: '',
         autoColor: false,
         bgSrcArr: [],
         logoSrcArr: [],
-        rules: [v => v.length <= 300 || '最多300个字符'],
+        rules: {
+            required: value => !!value || 'Required.',
+            counter: value => value.length <= 300 || '最多300个字符'
+        },
+        sizeValidation: {
+            max: value => value <= 2000 || '最大尺寸不超过2000px',
+            mix: value => value >= 200 || '最小尺寸不小于200px'
+        },
         eclSelect: { state: '15%', abbr: '1' },
         ecl: [
             { state: '7%', abbr: '0' },
@@ -112,11 +130,11 @@ export default {
                 case 'sm':
                     return '100%'
                 case 'md':
-                    return '80%'
+                    return '100%'
                 case 'lg':
-                    return '80%'
+                    return '100%'
                 case 'xl':
-                    return '50%'
+                    return '100%'
             }
         },
     },
@@ -125,22 +143,43 @@ export default {
     methods: {
         make() {
             if (!this.text) {
+                this.msg = '请输入内容';
                 this.snackbar = true
                 return;
             }
+            this.loading = true
+            this.qrBgSrc = this.bgSrc
+            this.qrLogoSrc = this.logoSrc
+            this.qrGifBgSrc = this.gifBgSrc
             this.correctLevel = parseInt(this.eclSelect.abbr)
             this.dotScale = parseFloat(this.dataSelect.abbr)
+            this.size = parseInt(this.setSize)
+            if (this.size > 2000) {
+                this.msg = '最大尺寸不超过2000px'
+                this.snackbar = true;
+                return;
+            }
             this.qrData = this.text
+            setTimeout(() => {
+                this.loading = false
+            }, 3000);
         },
         uploadBg() {
             this.bgSrc = '';
+            this.gifBgSrc = '';
             let file = this.bgSrcArr[0] ? this.bgSrcArr[0] : '';
+            let isGif = file.type == 'image/gif' ? true : false;
             if (file) {
                 const reader = new FileReader()
                 reader.readAsDataURL(file)
                 reader.onloadend = () => {
                     const base64data = reader.result
-                    this.bgSrc = base64data
+                    console.log(base64data);
+                    if (isGif) {
+                        this.gifBgSrc = base64data
+                    } else {
+                        this.bgSrc = base64data
+                    }
                 }
             }
         },
@@ -155,6 +194,10 @@ export default {
                     this.logoSrc = base64data
                 }
             }
+        },
+        getQrcode(data, id) {
+            this.qrcode = data
+            this.loading = false
         }
     }
 }
