@@ -52,7 +52,7 @@
       <!--      底部-->
       <v-footer app class="bg-red-lighten-3 text-white text-center d-flex flex-column">
         <div class="d-flex">
-          <v-btn v-for="icon in icons" :key="icon" class="mx-4 text-white" :icon="icon" variant="text"></v-btn>
+          <v-btn v-for="icon in icons" :key="icon" class="mx-4 text-white" :icon="icon" variant="text" @click="feedback"></v-btn>
         </div>
         <v-divider></v-divider>
 
@@ -124,6 +124,9 @@ export default {
     refresh() {
       this.dialog = false
       location.reload()
+    },
+    feedback(){
+      window.open('https://support.qq.com/product/423219')
     }
   }
 }
