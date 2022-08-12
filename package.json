@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
-    "@vueuse/core": "^9.0.2",
+    "@vueuse/core": "^9.1.0",
     "axios": "^0.27.2",
     "cnchar-all": "^3.2.2",
     "codemirror": "^5.65.7",
@@ -21,7 +21,7 @@
     "vue-json-viewer": "^3.0.4",
     "vue-qr": "^4.0.9",
     "vue-router": "^4.1.3",
-    "vuetify": "^3.0.0-beta.6",
+    "vuetify": "^3.0.0-beta.7",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
