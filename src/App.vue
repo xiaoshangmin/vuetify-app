@@ -29,6 +29,9 @@
         <v-tab :to="{ name: 'codemirror' }">
           代码比对
         </v-tab>
+        <v-tab :to="{ name: 'md5' }">
+          加密
+        </v-tab>
       </v-tabs>
       <router-view />
 

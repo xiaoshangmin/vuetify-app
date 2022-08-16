@@ -15,6 +15,8 @@
     "cnchar-all": "^3.2.2",
     "codemirror": "^5.65.7",
     "diff-match-patch": "^1.0.5",
+    "js-base64": "^3.7.2",
+    "js-md5": "^0.7.3",
     "pinyin-pro": "^3.11.0",
     "roboto-fontface": "*",
     "vue": "^3.2.25",

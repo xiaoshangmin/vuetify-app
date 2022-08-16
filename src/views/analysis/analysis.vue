@@ -14,7 +14,7 @@
           <v-card-text>
             <v-row justify="center">
               <v-col md="8" sm="12" lg="8">
-                <v-textarea v-model="url" clearable label="请粘贴分享的链接或者视频url地址" auto-grow hide-details rows="2">
+                <v-textarea variant="outlined" v-model="url" clearable label="请粘贴分享的链接或者视频url地址" auto-grow hide-details rows="2">
                 </v-textarea>
               </v-col>
             </v-row>

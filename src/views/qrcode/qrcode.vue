@@ -29,7 +29,7 @@
                             </v-switch>
                         </v-col>
                         <v-col class="d-flex" cols="12" sm="6">
-                            <v-file-input accept="image/*" label="Logo图" prepend-icon="" variant="outlined"
+                            <v-file-input accept="image/*" label="Logo图" show-size prepend-icon="" variant="outlined"
                                 v-model="logoSrcArr" @change="uploadLogo">
                             </v-file-input>
                         </v-col>

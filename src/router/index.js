@@ -60,7 +60,7 @@ const routes = [
       tabCloseable: false,
       tabLabel: '首页'
     }
-  },{
+  }, {
     path: '/codemirror',
     name: 'codemirror',
     component: () => import('@/views/codemirror/codemirror.vue'),
@@ -68,7 +68,7 @@ const routes = [
       tabCloseable: false,
       tabLabel: '首页'
     }
-  },{
+  }, {
     path: '/qrcode',
     name: 'qrcode',
     component: () => import('@/views/qrcode/qrcode.vue'),
@@ -76,8 +76,15 @@ const routes = [
       tabCloseable: false,
       tabLabel: '首页'
     }
+  }, {
+    path: '/md5',
+    name: 'md5',
+    component: () => import('@/views/md5/md5.vue'),
+    meta: {
+      tabCloseable: false,
+      tabLabel: '首页'
+    }
   },
-  //   ...order
 ]
 const router = createRouter({
   history: createWebHashHistory(),

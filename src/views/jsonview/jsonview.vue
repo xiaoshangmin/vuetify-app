@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row justify="end" class="mt-1 mb-3">
+    <v-row justify="end" v-if="jsonStr" class="mt-1 mb-3">
       <v-btn
           elevation="2"
           color="#ff8170"
@@ -9,7 +9,7 @@
     </v-row>
     <v-row justify="center">
       <v-col cols="6">
-        <v-textarea v-model="jsonStr" clearable rows="24" @input="update">
+        <v-textarea v-model="jsonStr" clearable rows="30" @input="update">
         </v-textarea>
       </v-col>
       <v-col cols="6" v-if="errorMessages != ''">
