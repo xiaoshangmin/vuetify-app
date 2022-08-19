@@ -3,7 +3,7 @@
     <v-row justify="center">
       <v-card :width="width">
         <v-card-text>
-          <v-text-field label="请输入中文" clearable v-model="chinese" @input="onChange"></v-text-field>
+          <v-text-field label="请输入中文" variant="outlined" clearable v-model="chinese" @input="onChange"></v-text-field>
           <v-switch v-model="toneType" label="不带声调" color="red" value="true" v-on:change="switchMe">
           </v-switch>
           <div class="text-caption pa-2 bg-grey-lighten-3">
