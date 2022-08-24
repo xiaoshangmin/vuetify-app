@@ -5,86 +5,37 @@
         <v-card-text>
           <v-row justify="center">
             <v-col md="12" sm="12" lg="12">
-              <v-textarea
-                v-model="text"
-                :rules="[rules.required, rules.counter]"
-                clearable
-                label="请输入内容"
-                counter
-                variant="outlined"
-                auto-grow
-                rows="2"
-                maxlength="300"
-              >
+              <v-textarea v-model="text" :rules="[rules.required, rules.counter]" clearable label="请输入内容" counter
+                variant="outlined" auto-grow rows="2" maxlength="300">
               </v-textarea>
             </v-col>
           </v-row>
           <v-row justify="center" class="mt-8">
             <v-col class="d-flex" cols="12" sm="6">
-              <v-select
-                :items="ecl"
-                label="容错级别"
-                variant="outlined"
-                v-model="eclSelect"
-                return-object
-                item-title="state"
-                item-value="abbr"
-              ></v-select>
+              <v-select :items="ecl" label="容错级别" variant="outlined" v-model="eclSelect" return-object
+                item-title="state" item-value="abbr"></v-select>
             </v-col>
             <v-col class="d-flex" cols="12" sm="6">
-              <v-select
-                :items="dataCodewords"
-                label="数据块缩放比例"
-                variant="outlined"
-                v-model="dataSelect"
-                return-object
-                item-title="state"
-                item-value="abbr"
-              ></v-select>
+              <v-select :items="dataCodewords" label="数据块缩放比例" variant="outlined" v-model="dataSelect" return-object
+                item-title="state" item-value="abbr"></v-select>
             </v-col>
             <v-col class="d-flex" cols="12" sm="6">
-              <v-file-input
-                accept="image/*"
-                label="背景图"
-                show-size
-                v-model="bgSrcArr"
-                prepend-icon=""
-                variant="outlined"
-                @change="uploadBg"
-              >
+              <v-file-input accept="image/*" label="背景图" show-size v-model="bgSrcArr"
+                prepend-icon="" variant="outlined" @change="uploadBg">
               </v-file-input>
             </v-col>
             <v-col class="d-flex" cols="12" sm="6">
-              <v-switch
-                v-model="autoColor"
-                label="使用背景图颜色"
-                color="red"
-                value="true"
-                hide-details
-              >
+              <v-switch v-model="autoColor" label="使用背景图颜色" color="red" value="true" hide-details>
               </v-switch>
             </v-col>
             <v-col class="d-flex" cols="12" sm="6">
-              <v-file-input
-                accept="image/*"
-                label="Logo图"
-                show-size
-                v-model="logoSrcArr"
-                prepend-icon=""
-                variant="outlined"
-                @change="uploadLogo"
-              >
+              <v-file-input accept="image/*" label="Logo图" show-size v-model="logoSrcArr" prepend-icon=""
+                variant="outlined" @change="uploadLogo">
               </v-file-input>
             </v-col>
             <v-col class="d-flex" cols="12" sm="6">
-              <v-text-field
-                label="尺寸"
-                variant="outlined"
-                type="number"
-                v-model="setSize"
-                max="2000"
-                :rules="[sizeValidation.max, sizeValidation.mix]"
-              >
+              <v-text-field label="尺寸" variant="outlined" type="number" v-model="setSize" max="2000"
+                :rules="[sizeValidation.max, sizeValidation.mix]">
               </v-text-field>
             </v-col>
           </v-row>
@@ -94,19 +45,9 @@
             </v-btn>
           </v-row>
           <v-row justify="center" v-if="qrData">
-            <vue-qr
-              :text="qrData"
-              :autoColor="autoColor"
-              :size="size"
-              :bgSrc="qrBgSrc"
-              :gifBgSrc="qrGifBgSrc"
-              :logoSrc="qrLogoSrc"
-              :dotScale="dotScale"
-              :correctLevel="correctLevel"
-              :margin="5"
-              :bindElement="false"
-              :callback="getQrcode"
-            >
+            <vue-qr :text="qrData" :autoColor="autoColor" :size="size" :bgSrc="qrBgSrc" :gifBgSrc="qrGifBgSrc"
+              :logoSrc="qrLogoSrc" :dotScale="dotScale" :correctLevel="correctLevel" :margin="5" :bindElement="false"
+              :callback="getQrcode">
             </vue-qr>
             <v-img max-height="300" max-width="300" :src="qrcode" contain></v-img>
           </v-row>
@@ -193,7 +134,7 @@ export default {
       }
     },
   },
-  created() {},
+  created() { },
   methods: {
     make() {
       if (!this.text) {
@@ -257,4 +198,5 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

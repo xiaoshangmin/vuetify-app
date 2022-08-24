@@ -13,7 +13,8 @@
           <v-card-subtitle>结果</v-card-subtitle>
           <v-card-text>
             <div class="text-subtitle-1">MD5: <span class="text-h6">{{ md5Text }} </span></div>
-            <div class="text-subtitle-1">BASE64: <span class="text-h6">{{ base64Text }} </span></div>
+            <div class="text-subtitle-1">BASE64编码: <span class="text-h6">{{ base64EncodeText }} </span></div>
+            <div class="text-subtitle-1">BASE64解码: <span class="text-h6">{{ base64DecodeText }} </span></div>
             <div class="text-subtitle-1">url编码: <span class="text-h6">{{ urlEncodeText }} </span></div>
             <div class="text-subtitle-1">url解码:<span class="text-h6">{{ urlDecodeText }} </span></div>
           </v-card-text>
@@ -31,7 +32,8 @@ export default {
   data: () => ({
     content: '',
     md5Text: '',
-    base64Text: '',
+    base64EncodeText: '',
+    base64DecodeText:'',
     urlDecodeText: '',
     urlEncodeText: '',
   }),
@@ -39,7 +41,8 @@ export default {
     update() {
       if (this.content) {
         this.md5Text = md5(this.content)
-        this.base64Text = Base64.encode(this.content)
+        this.base64EncodeText = Base64.encode(this.content)
+        this.base64DecodeText = Base64.decode(this.content)
         this.urlEncodeText = encodeURIComponent(this.content).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').
           replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');
         this.urlDecodeText = decodeURIComponent(this.content)
