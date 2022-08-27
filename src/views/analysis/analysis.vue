@@ -24,6 +24,7 @@
                 <v-chip color="secondary" class="ma-2">快手</v-chip>
                 <v-chip color="red" class="ma-2">微博</v-chip>
                 <v-chip color="green" class="ma-2">哔哩哔哩</v-chip>
+                <v-chip color="pink" class="ma-2">小红书</v-chip>
               </v-col>
             </v-row>
             <v-row justify="center">
@@ -84,6 +85,7 @@ export default {
       }
       this.loading = true;
       this.disabled = true;
+      this.info = {};
       //TODO 批量处理
       let param = {
         url: url[0],
