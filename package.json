@@ -19,17 +19,17 @@
     "js-md5": "^0.7.3",
     "pinyin-pro": "^3.11.0",
     "roboto-fontface": "*",
-    "vue": "^3.2.25",
+    "vue": "^3.2.38",
     "vue-json-viewer": "^3.0.4",
     "vue-qr": "^4.0.9",
-    "vue-router": "^4.1.4",
-    "vuetify": "^3.0.0-beta.9",
+    "vue-router": "^4.1.5",
+    "vuetify": "^3.0.0-beta.10",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.4",
     "vite": "^2.9.15",
-    "vite-plugin-vuetify": "^1.0.0-alpha.14",
-    "vue-cli-plugin-vuetify": "^2.5.4"
+    "vite-plugin-vuetify": "^1.0.0-alpha.15",
+    "vue-cli-plugin-vuetify": "^2.5.5"
   }
 }

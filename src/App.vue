@@ -12,7 +12,7 @@
           PDF转图片
         </v-tab>
         <v-tab :to="{ name: 'office' }">
-          WORD转PDF
+          PDF转换
         </v-tab>
         <v-tab :to="{ name: 'pinyin' }">
           中文转拼音

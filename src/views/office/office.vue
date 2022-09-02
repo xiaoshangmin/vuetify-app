@@ -19,10 +19,18 @@
             <v-row justify="center">
               <v-col md="8" sm="12" lg="8">
                 <v-file-input show-size counter
-                  accept=".doc,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                  label="选择word文件" :rules="rules" prepend-icon="" append-inner-icon="mdi-file" v-model="files"
+                  accept=".pdf,.doc,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  label="选择需要转换的文件" :rules="rules" prepend-icon="" append-inner-icon="mdi-file" v-model="files"
                   :disabled="disabled">
                 </v-file-input>
+              </v-col>
+            </v-row>
+            <v-row justify="center">
+              <v-col md="8" sm="12" lg="8">
+                <v-radio-group v-model="row" row>
+                  <v-radio label="Option 1" value="radio-1"></v-radio>
+                  <v-radio label="Option 2" value="radio-2"></v-radio>
+                </v-radio-group>
               </v-col>
             </v-row>
             <v-row v-if="finish" justify="center">
@@ -72,6 +80,7 @@ export default {
     finish: false,
     snackbar: false,
     text: '',
+    convertToType: 'word',
     timeout: 2000,
     loading: false,
     disabled: false,
@@ -114,6 +123,7 @@ export default {
       })
       let param = new FormData();//创建form对象
       param.append("file", file);//为创建的form对象增加上传的文件
+      param.append("type", "pdf")
       let config = {
         headers: { "Content-Type": "multipart/form-data" },
         onUploadProgress: event => {
@@ -126,7 +136,7 @@ export default {
         if (1 == res.data.code) {
           this.text = "文件上传成功，正在转换请稍等片刻";
           this.snackbar = !this.snackbar
-        }else{
+        } else {
           this.text = res.data.message;
           this.snackbar = !this.snackbar
         }
