@@ -3,9 +3,7 @@
     <v-snackbar v-model="snackbar" :timeout="timeout" vertical location="center">
       {{ text }}
       <template v-slot:actions>
-        <v-btn color="blue" variant="text" @click="snackbar = false">
-          关闭
-        </v-btn>
+        <v-btn color="blue" variant="text" @click="snackbar = false"> 关闭 </v-btn>
       </template>
     </v-snackbar>
     <v-row justify="center">
@@ -27,9 +25,9 @@
             </v-row>
             <v-row justify="center">
               <v-col md="8" sm="12" lg="8">
-                <v-radio-group v-model="row" row>
-                  <v-radio label="Option 1" value="radio-1"></v-radio>
-                  <v-radio label="Option 2" value="radio-2"></v-radio>
+                <v-radio-group v-model="convertToType" inline>
+                  <v-radio label="PDF转WORD" value="word" color="indigo"></v-radio>
+                  <v-radio label="WORD转PDF" value="pdf" color="indigo"></v-radio>
                 </v-radio-group>
               </v-col>
             </v-row>
@@ -68,93 +66,100 @@
         </v-card>
       </v-col>
     </v-row>
-
   </v-container>
 </template>
 
 <script>
-import { filesize } from '@/utils/utils'
+import { filesize } from "@/utils/utils";
 
 export default {
   data: () => ({
     finish: false,
     snackbar: false,
-    text: '',
-    convertToType: 'word',
+    text: "",
+    convertToType: "word",
     timeout: 2000,
     loading: false,
     disabled: false,
     files: [],
     info: {},
     rules: [
-      value => !!value || 'Required.',
-      value => {
-        console.log(value)
-        return !value || !value.length || value[0].size < 5243000 || '文件大小不能超过5 MB!'
+      (value) => !!value || "Required.",
+      (value) => {
+        console.log(value);
+        return (
+          !value || !value.length || value[0].size < 10486000 || "文件大小不能超过10 MB!"
+        );
       },
     ],
   }),
   methods: {
     postOffice() {
       if (this.files.length == 0) {
-        this.text = "请选择需要转换的文件"
-        this.snackbar = !this.snackbar
+        this.text = "请选择需要转换的文件";
+        this.snackbar = !this.snackbar;
         return;
       }
       //TODO 批量处理
-      let file = this.files[0];//拿到上传的file
-      if (file.size > 5243000) {
-        this.text = "文件大小不能超过5 MB!"
-        this.snackbar = !this.snackbar
+      let file = this.files[0]; //拿到上传的file
+      if (file.size > 10486000) {
+        this.text = "文件大小不能超过10 MB!";
+        this.snackbar = !this.snackbar;
         return;
       }
-      this.loading = true
-      this.disabled = true
+      this.loading = true;
+      this.disabled = true;
       this.$socket.getMsg((res) => {
-        if (typeof res === 'object') {
+        if (typeof res === "object") {
           if (res.result) {
-            this.loading = false
-            this.disabled = false
-            this.finish = true
-            res.filesize = filesize(res.filesize)
-            this.info = res
+            this.loading = false;
+            this.disabled = false;
+            this.finish = true;
+            res.filesize = filesize(res.filesize);
+            this.info = res;
           }
         }
-      })
-      let param = new FormData();//创建form对象
-      param.append("file", file);//为创建的form对象增加上传的文件
-      param.append("type", "pdf")
+      });
+      let param = new FormData(); //创建form对象
+      param.append("file", file); //为创建的form对象增加上传的文件
+      param.append("type", this.convertToType);
       let config = {
         headers: { "Content-Type": "multipart/form-data" },
-        onUploadProgress: event => {
-          let complete = (event.loaded / event.total * 100 | 0) + '%'
-          console.log(complete)
-        }
-      }//请求头和上传进度
-      this.$http.post("/api/office/upload", param, config).then((res) => {
-        console.log(res.data);
-        if (1 == res.data.code) {
-          this.text = "文件上传成功，正在转换请稍等片刻";
-          this.snackbar = !this.snackbar
-        } else {
-          this.text = res.data.message;
-          this.snackbar = !this.snackbar
-        }
-      }).catch((res) => {
-        console.log('error', res)
-        this.loading = false
-        this.disabled = false
-      });
+        onUploadProgress: (event) => {
+          let complete = (((event.loaded / event.total) * 100) | 0) + "%";
+          console.log(complete);
+        },
+      }; //请求头和上传进度
+      this.$http
+        .post("/api/office/upload", param, config)
+        .then((res) => {
+          console.log(res.data);
+          if (1 == res.data.code) {
+            this.text = "文件上传成功，正在转换请稍等片刻";
+          } else {
+            this.text = res.data.message;
+          }
+          this.snackbar = !this.snackbar;
+          this.loading = false
+          this.disabled = false;
+        })
+        .catch((res) => {
+          console.log("error", res);
+          this.text = res.message;
+          this.snackbar = !this.snackbar;
+          this.loading = false;
+          this.disabled = false;
+        });
     },
-  }
-}
+  },
+};
 </script>
 
 <style>
 .header,
 .footer {
-  -webkit-transition: background .5s ease-in;
-  transition: background .5s ease-in;
+  -webkit-transition: background 0.5s ease-in;
+  transition: background 0.5s ease-in;
   background: linear-gradient(135deg, #1d978f, #7ddecb);
 }
 </style>

@@ -117,6 +117,9 @@ export default {
         return response;
       },
       err => {
+        // if(err.response.status == 500){
+
+        // }
         return Promise.reject(err);
       }
     );

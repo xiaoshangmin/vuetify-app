@@ -82,8 +82,8 @@ function handleClose(e) {
     // initWebSocket()
 }
 
-function handleOpen(e) {
-    console.log("连接成功", e);
+function handleOpen() {
+    console.log("ws success");
     //每30秒发送一次消息
     timer = setInterval(res => {
         if (ws.readyState == ws.CLOSED) {
@@ -92,7 +92,7 @@ function handleOpen(e) {
             return
         }
         ws.send(1);
-    }, 15000)
+    }, 20000)
 }
 
 initWebSocket();
