@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-// import order from './modules/order'
 const routes = [
   {
     path: '/pdf',

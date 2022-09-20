@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
-    "@vueuse/core": "^9.1.1",
+    "@vueuse/core": "^9.2.0",
     "axios": "^0.27.2",
     "cnchar-all": "^3.2.2",
     "codemirror": "^5.65.8",
@@ -19,17 +19,17 @@
     "js-md5": "^0.7.3",
     "pinyin-pro": "^3.11.0",
     "roboto-fontface": "*",
-    "vue": "^3.2.38",
+    "vue": "^3.2.39",
     "vue-json-viewer": "^3.0.4",
     "vue-qr": "^4.0.9",
     "vue-router": "^4.1.5",
-    "vuetify": "^3.0.0-beta.10",
+    "vuetify": "^3.0.0-beta.11",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.4",
     "vite": "^2.9.15",
-    "vite-plugin-vuetify": "^1.0.0-alpha.15",
-    "vue-cli-plugin-vuetify": "^2.5.5"
+    "vite-plugin-vuetify": "^1.0.0-alpha.17",
+    "vue-cli-plugin-vuetify": "^2.5.8"
   }
 }

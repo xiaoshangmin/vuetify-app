@@ -87,7 +87,6 @@ export default {
     let res = calendar.solar2lunar()
     this.calendarInfo = `${res.gzYear}年 ${res.gzMonth}月 ${res.gzDay}日（${res.Animal}年）`
     this.calendarInfo2 = `${res.lYear}年${res.lMonth}月${res.lDay}日（${res.astro}）  ${res.ncWeek}`
-    console.log('======', res)
   },
   methods: {
     toDateTimeMethod() {
