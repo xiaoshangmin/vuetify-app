@@ -25,6 +25,10 @@
                 <v-chip color="red" class="ma-2">微博</v-chip>
                 <v-chip color="green" class="ma-2">哔哩哔哩</v-chip>
                 <v-chip color="pink" class="ma-2">小红书</v-chip>
+                <v-chip color="red" class="ma-2">Twitter</v-chip>
+                <v-chip color="pink" class="ma-2">Instagram</v-chip>
+                <v-chip color="secondary" class="ma-2">YouTuBe</v-chip>
+                <v-chip color="primary" class="ma-2">PronHub</v-chip>
               </v-col>
             </v-row>
             <v-row justify="center">
@@ -90,6 +94,18 @@ export default {
       let param = {
         url: url[0],
       };
+
+      this.$socket.getMsg((res) => { 
+        if (typeof res === 'object') {
+          if (res) {  
+            this.info = {"videoUrl":res.streams["dash-flv480"]["src"][0][0],"type":"video"}
+            console.log(this.info)
+          }
+        }
+      })
+
+
+
       this.$http
         .post("/api/analysis/media", param)
         .then((res) => {
