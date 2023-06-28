@@ -15,7 +15,7 @@ export default defineConfig({
   server: {
     // 修改端口
     host:'0.0.0.0',
-    port: 3000,
+    port: 3100,
     proxy: {
       '/api': {
         target: "http://127.0.0.1:9501/",
