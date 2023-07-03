@@ -8,6 +8,12 @@
         <v-tab :to="{ name: 'qrcode' }">
           二维码
         </v-tab>
+        <v-tab :to="{ name: 'urlToPdf' }">
+          网页转PDF
+        </v-tab>
+        <v-tab :to="{ name: 'fileToPdf' }">
+          文件转PDF
+        </v-tab>
         <v-tab :to="{ name: 'pdf' }">
           PDF转图片
         </v-tab>
@@ -61,7 +67,7 @@
         <v-divider></v-divider>
 
         <div class="text-white">
-          {{ new Date().getFullYear() }} — <strong>Wowyou</strong> Make By Love
+          {{ new Date().getFullYear() }} — Make By Love
           <v-icon size="x-small" color="red darken-2">
             mdi-heart
           </v-icon>

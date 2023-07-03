@@ -10,6 +10,24 @@ const routes = [
     }
   },
   {
+    path: '/urlToPdf',
+    name: 'urlToPdf',
+    component: () => import('@/views/urlToPdf/urlToPdf.vue'),
+    meta: {
+      tabCloseable: true,
+      tabLabel: '首页'
+    }
+  },
+  {
+    path: '/fileToPdf',
+    name: 'fileToPdf',
+    component: () => import('@/views/fileToPdf/fileToPdf.vue'),
+    meta: {
+      tabCloseable: true,
+      tabLabel: '首页'
+    }
+  },
+  {
     path: '/pinyin',
     name: 'pinyin',
     component: () => import('@/views/pinyin/pinyin.vue'),
