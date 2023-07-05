@@ -32,7 +32,7 @@
             </v-col>
           </v-row>
           <v-row justify="center" class="mt-2 mb-5">
-            <v-btn elevation="2" color="#ff8170" @click="make" :loading="loading">
+            <v-btn   append-icon="mdi-reload" elevation="2" color="#ff8170" @click="make" :loading="loading">
               开始转换
             </v-btn>
           </v-row>
@@ -112,26 +112,17 @@ export default {
 
       this.$http
         .post("/api/pdfTool/urlToPdf", param)
-        .then((res) => {
-          console.log(res.data);
-          if (1 != res.data.code) {
-            this.text = res.data.message;
-          }
-          this.snackbar = !this.snackbar;
+        .then((res) => { 
           this.loading = false;
           this.disabled = false;
         })
         .catch((res) => {
           console.log("error", res);
-          this.text = res.message;
-          this.snackbar = !this.snackbar;
+          this.msg = res.message;
           this.loading = false;
+          this.snackbar = true;
           this.disabled = false;
         });
-
-      setTimeout(() => {
-        this.loading = false;
-      }, 3000);
     },
   },
 };

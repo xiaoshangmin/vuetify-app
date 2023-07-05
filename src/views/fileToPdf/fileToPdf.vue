@@ -32,7 +32,6 @@
                 <v-file-input
                   show-size
                   counter
-                  accept=".pdf,.doc,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                   label="选择需要转换的文件"
                   :rules="rules"
                   prepend-icon=""
@@ -126,7 +125,7 @@
                 <v-chip color="primary" class="ma-1">.xltx</v-chip>
               </v-col>
             </v-row>
-            
+
             <v-row v-if="finish" justify="center">
               <v-divider></v-divider>
               <v-col cols="10">
@@ -152,10 +151,10 @@
               <v-col cols="12">
                 <v-row justify="center">
                   <v-btn
-                    append-icon="mdi-cloud-upload"
+                    append-icon="mdi-swap-horizontal"
                     elevation="2"
-                    color="#2fa59a"
-                    @click="postOffice"
+                    color="#ff8170"
+                    @click="postFile"
                     :disabled="disabled"
                   >
                     上传并转换
@@ -194,7 +193,7 @@ export default {
     ],
   }),
   methods: {
-    postOffice() {
+    postFile() {
       if (this.files.length == 0) {
         this.text = "请选择需要转换的文件";
         this.snackbar = !this.snackbar;
@@ -228,19 +227,24 @@ export default {
           let complete = (((event.loaded / event.total) * 100) | 0) + "%";
           console.log(complete);
         },
+        responseType: "blob",
       }; //请求头和上传进度
       this.$http
-        .post("/api/office/upload", param, config)
+        .post("/api/pdfTool/fileToPdf", param, config)
         .then((res) => {
-          console.log(res.data);
-          if (1 == res.data.code) {
-            this.text = "文件上传成功，正在转换请稍等片刻";
-          } else {
-            this.text = res.data.message;
-          }
-          this.snackbar = !this.snackbar;
+          console.log(res)
           this.loading = false;
           this.disabled = false;
+
+          var arrayBuffer = res.data;
+          const url = window.URL.createObjectURL(
+            new Blob([arrayBuffer], { type: res.headers['content-type'] })
+          );
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", file.name + ".pdf");
+          document.body.appendChild(link);
+          link.click();
         })
         .catch((res) => {
           console.log("error", res);
