@@ -17,9 +17,9 @@
         <v-tab :to="{ name: 'pdf' }">
           PDF转图片
         </v-tab>
-        <v-tab :to="{ name: 'office' }">
+        <!-- <v-tab :to="{ name: 'office' }">
           PDF转换
-        </v-tab>
+        </v-tab> -->
         <v-tab :to="{ name: 'pinyin' }">
           中文转拼音
         </v-tab>

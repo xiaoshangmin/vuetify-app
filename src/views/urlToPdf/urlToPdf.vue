@@ -32,7 +32,13 @@
             </v-col>
           </v-row>
           <v-row justify="center" class="mt-2 mb-5">
-            <v-btn   append-icon="mdi-reload" elevation="2" color="#ff8170" @click="make" :loading="loading">
+            <v-btn
+              append-icon="mdi-reload"
+              elevation="2"
+              color="#ff8170"
+              @click="make"
+              :loading="loading"
+            >
               开始转换
             </v-btn>
           </v-row>
@@ -57,8 +63,6 @@ export default {
     loading: false,
     snackbar: false,
     msg: "",
-    dialog: false,
-    correctLevel: 1,
     url: "",
     paper: "",
     rules: {
@@ -111,10 +115,19 @@ export default {
       param.append("url", this.url);
 
       this.$http
-        .post("/api/pdfTool/urlToPdf", param)
-        .then((res) => { 
+        .post("/api/pdfTool/urlToPdf", param,{responseType:'blob'})
+        .then((res) => {
           this.loading = false;
           this.disabled = false;
+          console.log(res)
+          var blob = res.data
+          const url = window.URL.createObjectURL(new Blob([blob],{type:res.headers['content-type']}))
+          var link = document.createElement('a')
+          link.href = url
+          link.setAttribute("download",new Date().getTime() + ".pdf")
+          document.body.appendChild(link)
+          link.click()
+
         })
         .catch((res) => {
           console.log("error", res);

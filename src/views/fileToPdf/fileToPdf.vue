@@ -208,17 +208,6 @@ export default {
       }
       this.loading = true;
       this.disabled = true;
-      this.$socket.getMsg((res) => {
-        if (typeof res === "object") {
-          if (res.result) {
-            this.loading = false;
-            this.disabled = false;
-            this.finish = true;
-            res.filesize = filesize(res.filesize);
-            this.info = res;
-          }
-        }
-      });
       let param = new FormData(); //创建form对象
       param.append("file", file); //为创建的form对象增加上传的文件
       let config = {
@@ -232,13 +221,13 @@ export default {
       this.$http
         .post("/api/pdfTool/fileToPdf", param, config)
         .then((res) => {
-          console.log(res)
+          console.log(res);
           this.loading = false;
           this.disabled = false;
 
-          var arrayBuffer = res.data;
+          var blob = res.data;
           const url = window.URL.createObjectURL(
-            new Blob([arrayBuffer], { type: res.headers['content-type'] })
+            new Blob([blob], { type: res.headers["content-type"] })
           );
           const link = document.createElement("a");
           link.href = url;
