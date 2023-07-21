@@ -10,7 +10,7 @@ import * as socketApi from './utils/socket'
 import JsonViewer from 'vue-json-viewer'
 import vueQr from 'vue-qr/src/packages/index'
 
-axios.defaults.timeout = 10000;
+axios.defaults.timeout = 30000;
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL
 
