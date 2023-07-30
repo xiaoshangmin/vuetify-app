@@ -10,6 +10,15 @@ const routes = [
     }
   },
   {
+    path: '/graph',
+    name: 'graph',
+    component: () => import('@/views/graph/graph.vue'),
+    meta: {
+      tabCloseable: true,
+      tabLabel: '首页'
+    }
+  },
+  {
     path: '/urlToPdf',
     name: 'urlToPdf',
     component: () => import('@/views/urlToPdf/urlToPdf.vue'),

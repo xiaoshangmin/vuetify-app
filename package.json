@@ -18,6 +18,7 @@
     "js-base64": "^3.7.5",
     "js-md5": "^0.7.3",
     "pinyin-pro": "^3.15.2",
+    "relation-graph": "^2.0.27",
     "roboto-fontface": "*",
     "vue": "^3.3.4",
     "vue-json-viewer": "^3.0.4",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.4",
+    "sass": "^1.64.1",
     "vite": "^2.9.16",
     "vite-plugin-vuetify": "^1.0.2",
     "vue-cli-plugin-vuetify": "^2.5.8"
