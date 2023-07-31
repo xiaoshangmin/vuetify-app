@@ -6,6 +6,11 @@ export const uuid = () => {
     });
 }
 
+//基于时间戳和随机数
+export const uniqueId = ()=>{
+    return 'id-' + new Date().getTime().toString(36) + '-' + Math.random().toString(36).substring(2, 9);
+}
+
 export const filesize = (bytes) => {
     if (bytes < 0.1 * 1024 * 1024) {            //小于0.1MB，则转化成KB
         bytes = (bytes / 1024).toFixed(2) + "KB"
