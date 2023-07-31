@@ -38,10 +38,18 @@
           <v-container>
             <v-row>
               <v-col cols="12">
-                <v-text-field label="名称" required v-model="newNode.text"></v-text-field>
+                <v-text-field label="名称" :rules="[rules.required]" v-model="newNode.text" clearable></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field label="简介" required v-model="newNode.desc"></v-text-field>
+                <v-textarea clearable label="简介" v-model="newNode.desc"></v-textarea>
+              </v-col>
+              <v-col cols="12">
+                <v-file-input clearable label="图片" accept="image/*" prepend-icon="" show-size></v-file-input>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12">
+                简介是点击节点后弹窗的详情内容，图片会覆盖名称，图片大小不能超过200kb
               </v-col>
             </v-row>
           </v-container>
@@ -49,9 +57,9 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue-darken-1" variant="text" @click="addNodeDialog = false">
-            Close
+            关闭
           </v-btn>
-          <v-btn color="blue-darken-1" variant="text" @click="doAddNode"> Save </v-btn>
+          <v-btn color="blue-darken-1" variant="text" @click="doAddNode"> 保存 </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -70,6 +78,9 @@ import { uniqueId } from "../../utils/utils";
 import { onMounted, ref } from "vue";
 import RelationGraph from "relation-graph/vue3";
 const relationGraph$ = ref<RelationGraph>();
+const rules = {
+  required: value => !!value || '名称必须填写',
+}
 const myPage = ref({});
 const newNode = ref({
   text: "",
