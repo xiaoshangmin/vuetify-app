@@ -24,12 +24,12 @@
     "vue-json-viewer": "^3.0.4",
     "vue-qr": "^4.0.9",
     "vue-router": "^4.2.4",
-    "vuetify": "^3.3.10",
+    "vuetify": "^3.3.11",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.4",
-    "sass": "^1.64.1",
+    "sass": "^1.64.2",
     "vite": "^2.9.16",
     "vite-plugin-vuetify": "^1.0.2",
     "vue-cli-plugin-vuetify": "^2.5.8"

@@ -46,6 +46,10 @@
               <v-col cols="12">
                 <v-file-input clearable label="图片" accept="image/*" prepend-icon="" show-size></v-file-input>
               </v-col>
+              <v-col cols="12">
+                <v-select clearable label="连接" v-model="select" :items="links" item-title="title"
+                  item-value="value"></v-select>
+              </v-col>
             </v-row>
             <v-row>
               <v-col cols="12">
@@ -86,6 +90,7 @@ const newNode = ref({
   text: "",
   desc: "",
 });
+
 const isShowNodeMenuPanel = ref(false);
 const nodeMenuPanelPosition = ref({ x: 0, y: 0 });
 const snackbar = ref(false);
@@ -97,6 +102,8 @@ const alterText = ref("");
 const alterTitle = ref("")
 const currentNode = ref(null);
 const jsonData = ref({});
+const links = ref([])
+const select = ref("")
 const options = {
   debug: false,
   allowSwitchLineShape: true,
@@ -124,27 +131,53 @@ function doAddNode() {
   if (newNode.value.text == "") {
     return;
   }
-  console.log("doAddNode", currentNode.value);
-  let nodes = jsonData.value.nodes;
-  let addNode = {
-    id: uniqueId(),
-    text: newNode.value.text,
-    data: {
-      desc: newNode.value.desc
-    }
+
+  const _all_nodes = relationGraph$.value.getInstance().getNodes();
+  const _all_links = relationGraph$.value.getInstance().getLinks();
+  let appendId = uniqueId();
+  let appendData = {
+    rootId: "start",
+    nodes: [
+      {
+        id: appendId,
+        text: newNode.value.text,
+        data: {
+          desc: newNode.value.desc
+        }
+      }
+    ],
+    lines: [
+      {
+        from: currentNode.value.id,
+        to: appendId,
+      }
+    ],
   };
-  nodes.push(addNode);
-  let lines = jsonData.value.lines;
-  let newLine = {
-    from: currentNode.value.id,
-    to: addNode.id,
-  };
-  lines.push(newLine);
-  console.log("doAddNodePush", nodes);
-  jsonData.value.nodes = nodes;
-  jsonData.value.lines = lines;
-  relationGraph$.value.setJsonData(jsonData.value);
+
+  if (select.value != "") {
+    appendData.lines.push({
+      from: appendId,
+      to: select.value
+    })
+  }
+
+  relationGraph$.value.getInstance().appendJsonData(appendData)
+  // relationGraph$.value.getInstance().refresh()
   addNodeDialog.value = false;
+  //更新下拉选项
+  let linkList = [];
+  _all_nodes.forEach(e => {
+    let element = {
+      title: e.text,
+      value: e.id
+    }
+    linkList.push(element)
+  });
+  links.value = linkList
+  newNode.value = {
+    text: "",
+    desc: "",
+  }
 }
 
 function delNode(nodeObject, $event) { }
@@ -159,13 +192,13 @@ function onNodeClick(nodeObject, $event) {
 }
 
 onMounted(() => {
-  let id = uniqueId();
+  let id = "start"//uniqueId();
   jsonData.value = {
     rootId: id,
     nodes: [
       {
         id: id,
-        text: "第一个",
+        text: "初始",
       },
     ],
     lines: [],
