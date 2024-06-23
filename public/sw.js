@@ -17,14 +17,8 @@ self.addEventListener('fetch', event => {
             })
         );
     } else {
-        console.log(url.origin, "elsese")
+        console.log(url.origin, "123")
         // 对于不需要修改的请求，直接返回原始响应
-        event.respondWith(fetch(event.request).then(response=>{
-            return new Response(response.body, {
-                status: response.status,
-                statusText: response.statusText,
-                headers: response.headers
-            });
-        }));
+        event.respondWith(fetch(event.request));
     }
 });

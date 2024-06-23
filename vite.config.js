@@ -3,7 +3,18 @@ import vue from '@vitejs/plugin-vue'
 import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(),
+    {
+      name: "isolation",
+      configureServer(server) {
+        server.middlewares.use((_req, res, next) => {
+          res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+          res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+          next();
+        });
+      },
+    },
+  ],
   resolve: {
     // 配置路径别名
     alias: {
@@ -19,10 +30,10 @@ export default defineConfig({
     // 修改端口
     host: '0.0.0.0',
     port: 3100,
-    headers: {
-      'Cross-Origin-Embedder-Policy': 'require-corp',
-      'Cross-Origin-Opener-Policy': 'same-origin'
-    },
+    // headers: {
+    //   'Cross-Origin-Embedder-Policy': 'require-corp',
+    //   'Cross-Origin-Opener-Policy': 'same-origin'
+    // },
     proxy: {
       '/api': {
         target: "http://127.0.0.1:9501/",

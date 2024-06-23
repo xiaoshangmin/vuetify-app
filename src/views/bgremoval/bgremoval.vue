@@ -61,6 +61,7 @@ export default {
             this.before = url;
             let config: Config = {
                 debug: true,
+                // device:"gpu",
                 //publicPath: "http://localhost:3000/ai-data/", // path to the wasm files
                 progress: (key, current, total) => {
                     if (key.includes("fetch:")) {

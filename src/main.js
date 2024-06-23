@@ -17,18 +17,19 @@ axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL
 loadFonts()
 
 if ('serviceWorker' in navigator) {
-
-    navigator.serviceWorker.ready.then(r=>{
+    console.log(6666)
+    navigator.serviceWorker.ready.then(r => {
+        console.log(777777777)
         r.unregister()
     })
 
-    // navigator.serviceWorker.register('/sw.js')
-    //     .then(registration => {
-    //         console.log('Service Worker registered with scope:', registration.scope);
-    //     })
-    //     .catch(error => {
-    //         console.log('Service Worker registration failed:', error);
-    //     });
+//     navigator.serviceWorker.register('/sw.js')
+//         .then(registration => {
+//             console.log('Service Worker registered with scope:', registration.scope);
+//         })
+//         .catch(error => {
+//             console.log('Service Worker registration failed:', error);
+//         });
 }
 
 const app = createApp(App)
