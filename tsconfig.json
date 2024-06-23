@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+      "target": "ES2020",                  // 目标 ECMAScript 版本
+      "module": "ESNext",                  // 生成代码的模块规范
+      "lib": ["DOM", "ES2020"],            // 需要包含的库
+      "moduleResolution": "node",          // 模块解析策略
+      "esModuleInterop": true,             // 启用对 ES 模块默认导入的互操作性支持
+      "skipLibCheck": true,                // 跳过库文件的类型检查
+      "forceConsistentCasingInFileNames": true,  // 强制文件名一致
+      "strict": true,                      // 启用所有严格类型检查选项
+      "noImplicitAny": true,               // 禁止隐式的 any 类型
+      "strictNullChecks": true,            // 启用严格的 null 检查
+      "strictFunctionTypes": true,         // 启用函数参数双向协变检查
+      "strictBindCallApply": true,         // 启用严格的 bind/call/apply 检查
+      "strictPropertyInitialization": true,// 启用严格的属性初始化检查
+      "noImplicitThis": true,              // 禁止隐式的 this 类型
+      "alwaysStrict": true                 // 始终以严格模式解析
+    },
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx"],  // 包含的文件
+    "exclude": ["node_modules"]            // 排除的文件
+  }
+  

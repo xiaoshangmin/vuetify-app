@@ -110,6 +110,14 @@ const routes = [
       tabCloseable: false,
       tabLabel: '首页'
     }
+  }, {
+    path: '/bgremoval',
+    name: 'bgremoval',
+    component: () => import('@/views/bgremoval/bgremoval.vue'),
+    meta: {
+      tabCloseable: false,
+      tabLabel: '首页'
+    }
   },
 ]
 const router = createRouter({

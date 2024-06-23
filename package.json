@@ -9,9 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@img-comparison-slider/vue": "^8.0.0",
+    "@imgly/background-removal": "^1.5.3",
+    "@imgly/background-removal-data": "^1.4.5",
     "@mdi/font": "5.9.55",
     "@vueuse/core": "^9.13.0",
-    "axios": "^0.27.2",
+    "axios": "^1.7.2",
     "cnchar-all": "^3.2.4",
     "codemirror": "^5.65.14",
     "diff-match-patch": "^1.0.5",

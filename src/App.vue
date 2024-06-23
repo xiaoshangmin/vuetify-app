@@ -8,6 +8,9 @@
         <v-tab :to="{ name: 'qrcode' }">
           二维码
         </v-tab>
+        <v-tab :to="{ name: 'bgremoval' }">
+          移除背景图
+        </v-tab>
         <v-tab :to="{ name: 'urlToPdf' }">
           网页转PDF
         </v-tab>
@@ -16,7 +19,7 @@
         </v-tab>
         <v-tab :to="{ name: 'pdf' }">
           PDF转图片
-        </v-tab>
+        </v-tab> 
         <v-tab :to="{ name: 'graph' }">
           关系图
         </v-tab>
@@ -129,9 +132,9 @@ export default {
         return Promise.reject(err);
       }
     );
-    this.$socket.initOpen((res) => {
-      this.dialog = true
-    })
+    // this.$socket.initOpen((res) => {
+    //   this.dialog = true
+    // })
   },
   methods: {
     refresh() {
