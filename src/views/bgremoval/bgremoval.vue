@@ -1,24 +1,17 @@
 <template>
-    <!-- <v-img :src="url" cover class="bg-grey-lighten-2"></v-img> -->
+    <v-row justify="center">
+        <v-col md="10" sm="12" lg="12">
+            <v-file-input label="选择需要转换的文件" :rules="rules" prepend-icon="" v-model="files" :disabled="disabled"
+                @change="f" class="custom-file-input">
+            </v-file-input>
+        </v-col>
+    </v-row>
     <ImgComparisonSlider>
         <!-- eslint-disable -->
         <img slot="first" style="width: 100%" :src="before" />
         <img slot="second" style="width: 100%" :src="after" />
-        <!-- <div slot="first" style="width: 100%">
-            <v-img :src="before" cover aspect-ratio="1" class="bg-grey-lighten-2"></v-img>
-        </div>
-        <div slot="second" style="width: 100%">
-            <v-img :src="after" cover aspect-ratio="1" class="bg-grey-lighten-2"></v-img>
-        </div> -->
         <!-- eslint-enable -->
     </ImgComparisonSlider>
-    <v-row justify="center">
-        <v-col md="10" sm="12" lg="12">
-            <v-file-input show-size counter label="选择需要转换的文件" :rules="rules" prepend-icon=""
-                append-inner-icon="mdi-file" v-model="files" :disabled="disabled" @change="f">
-            </v-file-input>
-        </v-col>
-    </v-row>
 </template>
 
 
@@ -38,7 +31,7 @@ export default {
                 );
             },
         ],
-        before: "",//"https://oss.wowyou.cc/font/p1b5ovf8b7qb2jrb1dmjspo14991.jpg",
+        before: "https://oss.wowyou.cc/font/p1b5ovf8b7qb2jrb1dmjspo14991.jpg",//"https://oss.wowyou.cc/font/p1b5ovf8b7qb2jrb1dmjspo14991.jpg",
         after: ""//https://img-comparison-slider.sneas.io/demo/images/before.webp
     }),
     components: {
@@ -48,7 +41,7 @@ export default {
 
     },
     methods: {
-        uu(){
+        uu() {
             console.log(this.files[0])
             let file = this.files[0]; //拿到上传的file
             const url = URL.createObjectURL(file)
@@ -79,7 +72,7 @@ export default {
                 // result is a blob encoded as PNG.
                 // It can be converted to an URL to be used as HTMLImage.src
                 const url = URL.createObjectURL(blob)
-                console.log("url",url)
+                console.log("url", url)
                 this.after = url
             })
         }
@@ -88,3 +81,46 @@ export default {
 
 }
 </script>
+
+<style scoped>
+.custom-file-input .v-file-input__text {
+    display: none;
+    /* 隐藏默认的文件输入文本 */
+}
+
+.custom-file-input .v-file-input__slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    /* 设置长方形的宽度 */
+    height: 100px;
+    /* 设置长方形的高度 */
+    border: 2px dashed #3f51b5;
+    /* 自定义边框样式 */
+    border-radius: 10px;
+    /* 设置圆角 */
+    cursor: pointer;
+    position: relative;
+}
+
+.custom-file-input .v-file-input__slot::before {
+    content: '选择文件';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #3f51b5;
+    /* 按钮背景色 */
+    color: #fff;
+    /* 按钮文字颜色 */
+    padding: 10px 20px;
+    border-radius: 5px;
+    /* 按钮圆角 */
+}
+
+.custom-file-input input[type="file"] {
+    display: none;
+    /* 隐藏实际的文件输入 */
+}
+</style>

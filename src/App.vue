@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <v-tabs class="header text-white" centered dark show-arrows>
+      <!-- <v-tabs class="header text-white" centered dark show-arrows>
         <v-tab :to="{ name: 'analysis' }">
           解析
         </v-tab>
@@ -41,7 +41,7 @@
         <v-tab :to="{ name: 'md5' }">
           加密
         </v-tab>
-      </v-tabs>
+      </v-tabs> -->
       <router-view />
 
       <!--公共弹窗-->
