@@ -1,9 +1,9 @@
 <template>
     <div class="d-flex justify-center flex-column mt-6">
         <div class="d-flex justify-center remove">
-            <ImgComparisonSlider>
-                <img slot="first" style="width: 100%" :src="before" />
-                <img slot="second" style="width: 100%" :src="after" />
+            <ImgComparisonSlider value="15">
+                <img slot="first" class="slider-img" :src="before" />
+                <img slot="second" class="slider-img" :src="after" />
             </ImgComparisonSlider>
         </div>
         <div class="mt-16">
@@ -29,7 +29,7 @@
             </v-file-input>
         </div>
     </div>
-
+    <v-alert closable text="..."></v-alert>
 </template>
 
 
@@ -67,6 +67,7 @@ export default {
             const url = URL.createObjectURL(file)
             console.log(url)
             this.before = url;
+            this.after = url;
             let config: Config = {
                 debug: true,
                 // device:"gpu",
@@ -98,6 +99,12 @@ export default {
 </script>
 
 <style scoped>
+.slider-img {
+    height: 50vh;
+    width: auto;
+    object-fit: contain;
+}
+
 .custom-file-input {
     width: 0;
     height: 0;

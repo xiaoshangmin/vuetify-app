@@ -1,6 +1,17 @@
 <template>
-  <v-app> 
-    <v-toolbar title="移除背景"></v-toolbar>
+  <v-app id="app">
+    <v-app-bar class="px-3" density="compact" flat>
+      <v-spacer></v-spacer>
+      <v-tabs color="grey-darken-2" centered>
+        <v-tab v-for="link in links" :key="link" :text="link"></v-tab>
+      </v-tabs>
+      <v-spacer></v-spacer>
+      <v-avatar
+        class="hidden-sm-and-down"
+        color="grey-darken-1"
+        size="32"
+      ></v-avatar>
+    </v-app-bar>
     <v-main>
       <!-- <v-tabs class="header text-white" centered dark show-arrows>
         <v-tab :to="{ name: 'analysis' }">
@@ -83,13 +94,19 @@
 </template>
 
 <script>
-import { uuid } from '@/utils/utils'  
+import { uuid } from '@/utils/utils'
 
 export default {
   name: 'App',
 
   data: () => ({
     dialog: false,
+    links: [
+      '移除背景',
+      '拼字幕',
+      'IT 工具箱',
+      'Updates',
+    ],
     icons: [
       'mdi-wechat',
       'mdi-qqchat',
