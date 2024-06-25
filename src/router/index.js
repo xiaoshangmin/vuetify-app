@@ -65,7 +65,8 @@ const routes = [
   }, {
     path: '/',
     name: 'analysis',
-    component: () => import('@/views/analysis/analysis.vue'),
+    // component: () => import('@/views/analysis/analysis.vue'),
+    component: () => import('@/views/bgremoval/bgremoval.vue'),
     meta: {
       tabCloseable: false,
       tabLabel: '首页'

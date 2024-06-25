@@ -1,5 +1,6 @@
 <template>
-  <v-app>
+  <v-app> 
+    <v-toolbar title="移除背景"></v-toolbar>
     <v-main>
       <!-- <v-tabs class="header text-white" centered dark show-arrows>
         <v-tab :to="{ name: 'analysis' }">
@@ -62,7 +63,7 @@
       </v-dialog>
 
       <!--      底部-->
-      <v-footer app class="bg-red-lighten-3 text-white text-center d-flex flex-column">
+      <!-- <v-footer app class="bg-red-lighten-3 text-white text-center d-flex flex-column">
         <div class="d-flex">
           <v-btn v-for="icon in icons" :key="icon" class="mx-4 text-white" :icon="icon" variant="text"
             @click="feedback"></v-btn>
@@ -75,7 +76,7 @@
             mdi-heart
           </v-icon>
         </div>
-      </v-footer>
+      </v-footer> -->
 
     </v-main>
   </v-app>
