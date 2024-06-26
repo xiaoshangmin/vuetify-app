@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex justify-center flex-column mt-6">
         <div class="d-flex justify-center remove">
-            <ImgComparisonSlider value="15">
+            <ImgComparisonSlider :value="imgSliderVal" class="img-slider">
                 <img slot="first" class="slider-img" :src="before" />
                 <img slot="second" class="slider-img" :src="after" />
             </ImgComparisonSlider>
@@ -10,6 +10,11 @@
             <div class="d-flex justify-center">
                 <v-btn @click="upload" text="上传图片" color="#0f70e6" elevation="12" size="x-large" rounded="xl">
                 </v-btn>
+                <v-tooltip text="电脑有GPU的话勾选出图更快">
+                    <template v-slot:activator="{ props }">
+                        <v-checkbox label="使用GPU" v-model="gpu" v-bind="props"></v-checkbox>
+                    </template>
+                </v-tooltip>
             </div>
             <div class="d-flex justify-center mt-16 align-center flex-column">
                 没有图片？ 试试这些图片：
@@ -29,7 +34,25 @@
             </v-file-input>
         </div>
     </div>
-    <v-alert closable text="..."></v-alert>
+    <!-- 对话框 -->
+    <v-dialog v-model="dialog" max-width="500" persistent>
+        <v-card v-if="isLoading" title="Dialog">
+            <v-card-text>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
+            </v-card-text>
+            <v-progress-linear color="light-blue" height="10" striped v-model="downloadProgress"></v-progress-linear>
+        </v-card>
+        <v-card v-if="isProgress" title="Dialog">
+            <v-card-text>
+                <v-progress-circular indeterminate></v-progress-circular>
+            </v-card-text>
+        </v-card>
+    </v-dialog>
+    <!-- 消息条 -->
+    <v-snackbar v-model="snackbar" elevation="24" timeout="3000" color="red">
+        图片已经处理完成啦，拖动分割条看看吧！
+    </v-snackbar>
 </template>
 
 
@@ -38,6 +61,13 @@ import { removeBackground, Config } from "@imgly/background-removal";
 import { ImgComparisonSlider } from '@img-comparison-slider/vue';
 export default {
     data: () => ({
+        gpu: false,
+        dialog: false,
+        isLoading: false,
+        isProgress: false,
+        snackbar: false,
+        downloadProgress: 0,
+        imgSliderVal: 50,
         files: [],
         info: {},
         rules: [
@@ -56,40 +86,81 @@ export default {
         ImgComparisonSlider,
     },
     created() {
+        // const canvas = document.createElement('canvas');
+        // const webgl = canvas.getContext('experimental-webgl');
+        // const info = gl.getExtension('WEBGL_debug_renderer_info');
+
+        // const msg = webgl.getParameter(info.UNMASKED_RENDERER_WEBGL);
+        // console.log(msg);
+        this.checkGpu();
 
     },
     methods: {
+        init() {
+
+        },
+        checkGpu() {
+            const canvas = document.createElement('canvas');
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            if (gl && gl instanceof WebGLRenderingContext) {
+                this.gpu = true
+            }
+        },
         upload() {
             this.$refs.upload.click()
         },
         remove() {
+            this.downloadProgress = 0;
             let file = this.files[0]; //拿到上传的file
             const url = URL.createObjectURL(file)
-            console.log(url)
             this.before = url;
             this.after = url;
             let config: Config = {
-                debug: true,
-                // device:"gpu",
+                debug: false,
+                model: 'isnet',
+                output: {
+                    quality: 0.8,
+                    format: 'image/webp' //image/jpeg, image/webp
+                },
+                device: gpu ? "gpu" : "cpu",
                 //publicPath: "http://localhost:3000/ai-data/", // path to the wasm files
                 progress: (key, current, total) => {
+                    let per = ((current / total) * 100).toFixed(0)
+                    console.log("progress", key, current, total, per)
+
                     if (key.includes("fetch:")) {
-                        console.log(
-                            "Downloading AI models. This was a little while ago the first time..."
-                        )
+                        this.isLoading = true
+                        this.isProgress = false
+                        this.dialog = true;
+                        if (key.includes("onnxruntime")) {
+                            this.downloadProgress = per
+                        }
+                        // console.log(
+                        //     "Downloading AI models. This was a little while ago the first time..."
+                        // )
                     }
-                    if (key === "compute:inference") { console.log("Processing image...") }
+                    if (key == "compute:decode") {
+                        this.isLoading = false
+                        this.isProgress = true
+                        this.dialog = true;
+                    }
+                    if (key === "compute:inference") {
+                        console.log("Processing image...")
+                    }
                 },
             }
 
-
+            console.time();
             let imageData: string = url
             removeBackground(imageData!, config).then((blob: Blob) => {
-                // result is a blob encoded as PNG.
-                // It can be converted to an URL to be used as HTMLImage.src
                 const url = URL.createObjectURL(blob)
-                console.log("url", url)
                 this.after = url
+                this.imgSliderVal = 15
+                this.isLoading = false
+                this.isProgress = false
+                this.dialog = false;
+                this.snackbar = true
+                console.timeEnd();
             })
         }
     }
@@ -99,6 +170,11 @@ export default {
 </script>
 
 <style scoped>
+.img-slider {
+    background: url("../../assets/background.svg");
+    background-repeat: repeat;
+}
+
 .slider-img {
     height: 50vh;
     width: auto;

@@ -102,7 +102,7 @@ export default {
   data: () => ({
     dialog: false,
     links: [
-      '移除背景',
+      'AI-移除背景',
       '拼字幕',
       'IT 工具箱',
       'Updates',
