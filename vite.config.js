@@ -19,10 +19,10 @@ export default defineConfig({
     // 修改端口
     host: '0.0.0.0',
     port: 3100,
-    // headers: {
-    //   'Cross-Origin-Embedder-Policy': 'require-corp',
-    //   'Cross-Origin-Opener-Policy': 'same-origin'
-    // },
+    headers: {
+      'Cross-Origin-Embedder-Policy': 'require-corp',
+      'Cross-Origin-Opener-Policy': 'same-origin'
+    },
     proxy: {
       '/api': {
         target: "http://127.0.0.1:9501/",
