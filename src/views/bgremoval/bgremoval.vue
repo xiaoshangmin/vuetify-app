@@ -36,14 +36,13 @@
     </div>
     <!-- 对话框 -->
     <v-dialog v-model="dialog" max-width="500" persistent>
-        <v-card v-if="isLoading" title="Dialog">
+        <v-card v-if="isLoading" title="处理中">
             <v-card-text>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.
+                初始化AI模型，请稍等片刻，模型下载完成后自动处理图片
             </v-card-text>
             <v-progress-linear color="light-blue" height="10" striped v-model="downloadProgress"></v-progress-linear>
         </v-card>
-        <v-card v-if="isProgress" title="Dialog">
+        <v-card v-if="isProgress" title="正在处理图像">
             <v-card-text>
                 <v-progress-circular indeterminate></v-progress-circular>
             </v-card-text>
@@ -73,7 +72,6 @@ export default {
         rules: [
             (value) => !!value || "Required.",
             (value) => {
-                console.log(value[0])
                 return (
                     !value || !value.length || value[0].size < 10486 || "文件大小不能超过10 MB!"
                 );
@@ -115,34 +113,28 @@ export default {
             const url = URL.createObjectURL(file)
             this.before = url;
             this.after = url;
+           
             let config: Config = {
                 debug: false,
                 model: 'isnet',
                 output: {
                     quality: 0.8,
-                    format: 'image/webp' //image/jpeg, image/webp
+                    format: 'image/png' //image/jpeg, image/webp
                 },
-                device: gpu ? "gpu" : "cpu",
+                device: this.gpu ? "gpu" : "cpu",
                 //publicPath: "http://localhost:3000/ai-data/", // path to the wasm files
                 progress: (key, current, total) => {
                     let per = ((current / total) * 100).toFixed(0)
                     console.log("progress", key, current, total, per)
 
                     if (key.includes("fetch:")) {
-                        this.isLoading = true
-                        this.isProgress = false
-                        this.dialog = true;
-                        if (key.includes("onnxruntime")) {
+                        if (key.includes("model")) {
                             this.downloadProgress = per
                         }
-                        // console.log(
-                        //     "Downloading AI models. This was a little while ago the first time..."
-                        // )
                     }
                     if (key == "compute:decode") {
                         this.isLoading = false
                         this.isProgress = true
-                        this.dialog = true;
                     }
                     if (key === "compute:inference") {
                         console.log("Processing image...")
@@ -151,6 +143,9 @@ export default {
             }
 
             console.time();
+            this.isLoading = true
+            this.isProgress = false
+            this.dialog = true;
             let imageData: string = url
             removeBackground(imageData!, config).then((blob: Blob) => {
                 const url = URL.createObjectURL(blob)
