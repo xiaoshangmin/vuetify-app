@@ -12,48 +12,7 @@
         size="32"
       ></v-avatar>
     </v-app-bar>
-    <v-main>
-      <!-- <v-tabs class="header text-white" centered dark show-arrows>
-        <v-tab :to="{ name: 'analysis' }">
-          解析
-        </v-tab>
-        <v-tab :to="{ name: 'qrcode' }">
-          二维码
-        </v-tab>
-        <v-tab :to="{ name: 'bgremoval' }">
-          移除背景图
-        </v-tab>
-        <v-tab :to="{ name: 'urlToPdf' }">
-          网页转PDF
-        </v-tab>
-        <v-tab :to="{ name: 'fileToPdf' }">
-          文件转PDF
-        </v-tab>
-        <v-tab :to="{ name: 'pdf' }">
-          PDF转图片
-        </v-tab> 
-        <v-tab :to="{ name: 'graph' }">
-          关系图
-        </v-tab>
-        <v-tab :to="{ name: 'pinyin' }">
-          中文转拼音
-        </v-tab>
-        <v-tab :to="{ name: 'pkg' }">
-          国内源
-        </v-tab>
-        <v-tab :to="{ name: 'json' }">
-          格式JSON
-        </v-tab>
-        <v-tab :to="{ name: 'timestamp' }">
-          时间戳转换
-        </v-tab>
-        <v-tab :to="{ name: 'codemirror' }">
-          代码比对
-        </v-tab>
-        <v-tab :to="{ name: 'md5' }">
-          加密
-        </v-tab>
-      </v-tabs> -->
+    <v-main> 
       <router-view />
 
       <!--公共弹窗-->
@@ -165,10 +124,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-.header {
-  -webkit-transition: background .5s ease-in;
-  transition: background .5s ease-in;
-  background: linear-gradient(46deg, #e85846, #ff8170);
-}
-</style>

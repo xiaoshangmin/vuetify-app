@@ -44,16 +44,16 @@
                         <v-checkbox label="使用GPU" v-model="gpu" v-bind="props"></v-checkbox>
                     </template>
                 </v-tooltip>
+                <v-btn @click="handleDownload" text="下载" color="#0f70e6" elevation="12" size="x-large" rounded="xl">
+                </v-btn>
             </div>
             <div class="d-flex justify-center mt-16 align-center flex-column">
                 没有图片？ 试试这些图片：
                 <div class="d-flex ga-2">
                     <v-img :width="64" aspect-ratio="1" cover rounded src="../../test.jpg" @click="test"></v-img>
                     <v-img :width="64" aspect-ratio="1" cover rounded src="../../dog.jpg" @click="test"></v-img>
-                    <v-img :width="64" aspect-ratio="1" cover rounded
-                        src="https://oss.wowyou.cc/font/p1b5ovf8b7qb2jrb1dmjspo14991.jpg"></v-img>
-                    <v-img :width="64" aspect-ratio="1" cover rounded
-                        src="https://oss.wowyou.cc/font/p1b5ovf8b7qb2jrb1dmjspo14991.jpg"></v-img>
+                    <v-img :width="64" aspect-ratio="1" cover rounded src="../../car.jpg" @click="test"></v-img>
+                    <v-img :width="64" aspect-ratio="1" cover rounded src="../../people.jpg" @click="test"></v-img>
                 </div>
             </div>
             <v-file-input ref="upload" label="选择需要转换的文件" :rules="rules" prepend-icon="" v-model="files" @change="remove"
@@ -111,7 +111,7 @@ export default {
     components: {
         ImgComparisonSlider,
     },
-    created() { 
+    created() {
         this.checkGpu();
 
     },
@@ -123,6 +123,14 @@ export default {
             const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
             if (gl && gl instanceof WebGLRenderingContext) {
                 this.gpu = true
+            }
+        },
+        handleDownload() {
+            if (this.after) {
+                const link = document.createElement("a")
+                link.href = this.after
+                link.download = `remove-bg-${Date.now()}.png`
+                link.click()
             }
         },
         test(e) {
