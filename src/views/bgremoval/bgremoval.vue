@@ -94,7 +94,7 @@ export default {
         isProgress: false,
         snackbar: false,
         downloadProgress: 0,
-        imgSliderVal: 50,
+        imgSliderVal: 75,
         files: [],
         info: {},
         rules: [
