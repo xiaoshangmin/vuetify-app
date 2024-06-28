@@ -36,18 +36,22 @@
             </ImgComparisonSlider>
         </div>
         <div class="mt-16">
-            <div class="d-flex justify-center">
-                <v-btn @click="upload" text="上传图片" color="#0f70e6" elevation="12" size="x-large" rounded="xl">
-                </v-btn>
+            <div class="d-flex justify-center align-center flex-column">
+                <div class="d-flex  justify-center align-center ga-10 mb-6">
+                    <v-btn @click="upload" text="上传图片" color="#0f70e6" prepend-icon="mdi-image" elevation="12" size="x-large" rounded="xl"
+                        width="180px" height="55px">
+                    </v-btn>
+
+                    <v-btn @click="handleDownload" text="下载图片" color="#FFA500" prepend-icon="mdi-download" elevation="12"
+                        size="x-large" width="180px" height="55px" rounded="xl" :disabled="disabled"></v-btn>
+                </div>
                 <v-tooltip text="电脑有GPU的话勾选出图更快">
                     <template v-slot:activator="{ props }">
                         <v-checkbox label="使用GPU" v-model="gpu" v-bind="props"></v-checkbox>
                     </template>
                 </v-tooltip>
-                <v-btn @click="handleDownload" text="下载" color="#0f70e6" elevation="12" size="x-large" rounded="xl">
-                </v-btn>
             </div>
-            <div class="d-flex justify-center mt-16 align-center flex-column">
+            <div class="d-flex justify-center mt-10 align-center flex-column">
                 没有图片？ 试试这些图片：
                 <div class="d-flex ga-2">
                     <v-img :width="64" aspect-ratio="1" cover rounded src="../../test.jpg" @click="test"></v-img>
@@ -93,6 +97,7 @@ export default {
         isLoading: false,
         isProgress: false,
         snackbar: false,
+        disabled:true,
         downloadProgress: 0,
         imgSliderVal: 75,
         files: [],
@@ -113,7 +118,6 @@ export default {
     },
     created() {
         this.checkGpu();
-
     },
     methods: {
         init() {
@@ -151,6 +155,7 @@ export default {
             this.before = url;
             this.after = url;
             this.isActive = true;
+            this.disabled = true;
             this.doRemove(url)
         },
         doRemove(url: string) {
@@ -165,7 +170,7 @@ export default {
                 //publicPath: "http://localhost:3000/ai-data/", // path to the wasm files
                 progress: (key, current, total) => {
                     let per = ((current / total) * 100).toFixed(0)
-                    console.log("progress", key, current, total, per)
+                    // console.log("progress", key, current, total, per)
 
                     if (key.includes("fetch:")) {
                         if (key.includes("model")) {
@@ -177,7 +182,7 @@ export default {
                         this.isProgress = true
                     }
                     if (key === "compute:inference") {
-                        console.log("Processing image...")
+                        // console.log("Processing image...")
                     }
                 },
             }
@@ -190,11 +195,12 @@ export default {
             removeBackground(imageData!, config).then((blob: Blob) => {
                 const url = URL.createObjectURL(blob)
                 this.after = url
-                this.imgSliderVal = 15
-                this.isLoading = false
-                this.isProgress = false
+                this.imgSliderVal = 15;
+                this.isLoading = false;
+                this.isProgress = false;
                 this.dialog = false;
-                this.snackbar = true
+                this.snackbar = true;
+                this.disabled = false;
                 console.timeEnd();
             })
         }
