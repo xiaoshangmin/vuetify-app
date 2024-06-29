@@ -6,7 +6,7 @@ const routes = [
     component: () => import('@/views/bgremoval/bgremoval.vue'),
     meta: {
       tabCloseable: false,
-      tabLabel: '首页'
+      tabLabel: '移除背景'
     }
   },
 ]

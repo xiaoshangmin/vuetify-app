@@ -2,10 +2,9 @@
   <v-app id="app" :theme="theme">
     <v-app-bar class="px-3" density="compact" flat>
       <v-spacer></v-spacer>
-      <v-tabs color="grey-darken-2" centered>
-        <!-- <v-tab v-for="link in links" :key="link" :text="link"></v-tab> -->
+      <v-tabs color="grey-darken-2" centered> 
         <v-tab key="AI-移除背景" text="AI-移除背景"></v-tab>
-        <v-tab key="IT 工具箱" text="IT 工具箱景" @click="goItTools"></v-tab>
+        <v-tab key="IT 工具箱" text="IT 工具箱" @click="goItTools"></v-tab>
       </v-tabs>
       <v-spacer></v-spacer>
       <v-btn :icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'" slim @click="onClick"></v-btn>
@@ -68,22 +67,9 @@ import { uuid } from '@/utils/utils'
 
 export default {
   name: 'App',
-
   data: () => ({
     theme: 'light',
-    themeTransition: false,
     dialog: false,
-    links: [
-      'AI-移除背景',
-      '拼字幕',
-      'IT 工具箱'
-    ],
-    icons: [
-      'mdi-wechat',
-      'mdi-qqchat',
-      'mdi-sina-weibo',
-      'mdi-instagram',
-    ],
   }),
   created() {
     const savedTheme = localStorage.getItem('theme') || 'light'; // 默认使用light主题
@@ -116,10 +102,7 @@ export default {
         }
         return response;
       },
-      err => {
-        // if(err.response.status == 500){
-
-        // }
+      err => { 
         return Promise.reject(err);
       }
     );
