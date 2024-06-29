@@ -35,14 +35,14 @@
                 </svg>
             </ImgComparisonSlider>
         </div>
-        <div class="mt-16">
+        <div class="mt-10">
             <div class="d-flex justify-center align-center flex-column">
-                <div class="d-flex  justify-center align-center ga-10 mb-6">
-                    <v-btn @click="upload" text="上传图片" color="#0f70e6" prepend-icon="mdi-image" elevation="12" size="x-large" rounded="xl"
+                <div class="d-flex  justify-center align-center ga-5 mb-6">
+                    <v-btn @click="upload" text="上传图片"  prepend-icon="mdi-image" elevation="12" size="x-large" rounded="xl"
                         width="180px" height="55px">
                     </v-btn>
 
-                    <v-btn @click="handleDownload" text="下载图片" color="#FFA500" prepend-icon="mdi-download" elevation="12"
+                    <v-btn @click="handleDownload" text="下载图片"  prepend-icon="mdi-download" elevation="12"
                         size="x-large" width="180px" height="55px" rounded="xl" :disabled="disabled"></v-btn>
                 </div>
                 <v-tooltip text="电脑有GPU的话勾选出图更快">
@@ -51,7 +51,10 @@
                     </template>
                 </v-tooltip>
             </div>
-            <div class="d-flex justify-center mt-10 align-center flex-column">
+            <v-file-input ref="upload" label="选择需要转换的文件" :rules="rules" prepend-icon="" v-model="files" @change="remove"
+                class="custom-file-input">
+            </v-file-input>
+            <div class="d-flex justify-center align-center flex-column">
                 没有图片？ 试试这些图片：
                 <div class="d-flex ga-2">
                     <v-img :width="64" aspect-ratio="1" cover rounded src="../../test.jpg" @click="test"></v-img>
@@ -60,9 +63,7 @@
                     <v-img :width="64" aspect-ratio="1" cover rounded src="../../people.jpg" @click="test"></v-img>
                 </div>
             </div>
-            <v-file-input ref="upload" label="选择需要转换的文件" :rules="rules" prepend-icon="" v-model="files" @change="remove"
-                class="custom-file-input">
-            </v-file-input>
+           
         </div>
     </div>
     <!-- 对话框 -->
