@@ -54,7 +54,7 @@
             <v-file-input ref="upload" label="选择需要转换的文件" :rules="rules" prepend-icon="" v-model="files" @change="remove"
                 class="custom-file-input">
             </v-file-input>
-            <div class="d-flex justify-center align-center flex-column">
+            <!-- <div class="d-flex justify-center align-center flex-column">
                 没有图片？ 试试这些图片：
                 <div class="d-flex ga-2">
                     <v-img :width="64" aspect-ratio="1" cover rounded src="../../test.jpg" @click="test"></v-img>
@@ -62,7 +62,7 @@
                     <v-img :width="64" aspect-ratio="1" cover rounded src="../../car.jpg" @click="test"></v-img>
                     <v-img :width="64" aspect-ratio="1" cover rounded src="../../people.jpg" @click="test"></v-img>
                 </div>
-            </div>
+            </div> -->
            
         </div>
     </div>
@@ -107,7 +107,7 @@ export default {
             (value) => !!value || "Required.",
             (value) => {
                 return (
-                    !value || !value.length || value[0].size < 10486 || "文件大小不能超过10 MB!"
+                    !value || !value.length || value[0].size < 10486000 || "文件大小不能超过10 MB!"
                 );
             },
         ],
