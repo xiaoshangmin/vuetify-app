@@ -2,14 +2,34 @@
     <v-container>
         <div class="container d-flex justify-center align-center flex-column">
             <div class="content d-flex justify-center align-center">
-                <div class="resize-handle">⇲</div>
-                <div class="card d-flex justify-center align-center" ref="draggable">
-                    <div class="elevation-20" style="opacity: 0.9;">
-                        <h2 class="text-h5 mb-6" style="font-family: fantasy;outline:none;" contenteditable="true"
-                            @input="updateTitle">{{ content }}</h2>
+                <div class="d-sm-none d-sm-flex resize-handle">⇲</div>
+                <div class="content-mode" ref="draggable">
+                    <div class="card d-flex justify-center align-start pt-4 pb-4 px-4 rounded-lg flex-column">
+                        <div contenteditable="true" class="editable-element title">
+                            <p>👋 hi 你好</p>
+                        </div>
+                        <div class="editable-element subtitle" contenteditable="true" @input="updateTitle">
+                            <p>{{ content }}</p>
+                        </div>
+                        <div class="editable-element time" contenteditable="true">
+                            <p>讨厌麻烦事 2024-07-15 18:20 广东</p>
+                        </div>
+                        <div class="qrcode pt-2 d-flex flex-row justify-space-between align-center">
+                            <div>
+                                <div  class="editable-element" contenteditable="true">
+                                    Wo卡片
+                                </div>
+                                <div class="editable-element desc"  contenteditable="true">
+                                    扫描二维码
+                                </div>
+                            </div>
+                            <vue-qr :text="qrData" :size="60" :margin="0" colorLight="transparent"
+                                backgroundColor="transparent" colorDark="#999999" :callback="getQrcode">
+                            </vue-qr>
+                        </div>
                     </div>
                 </div>
-                <div class="resize-handle">⇲</div>
+                <div class="resize-handle d-sm-none">⇲</div>
             </div>
             <div class="operation">
                 <v-btn @click="generateImage">
@@ -21,21 +41,23 @@
 </template>
 
 <script>
-import interact from 'interactjs'; 
+import interact from 'interactjs';
 import domtoimage from 'dom-to-image-more';
 
 
 export default {
     data: () => ({
         canvas: null,
-        content: "484864545454545"
+        content: "",
+        qrcode: "",
+        qrData: "https://www.baidu.com/",
     }),
     created() {
     },
     mounted() {
         interact(this.$refs.draggable)
             .resizable({
-                edges: { top: false, left: true, bottom: true, right: true },
+                edges: { top: false, left: true, bottom: false, right: true },
                 listeners: {
                     move: function (event) {
                         let { x, y } = event.target.dataset
@@ -45,7 +67,7 @@ export default {
 
                         Object.assign(event.target.style, {
                             width: `${event.rect.width}px`,
-                            height: `${event.rect.height}px`,
+                            // height: `${event.rect.height}px`,
                             transform: `translate(${x}px, ${y}px)`
                         })
                         Object.assign(event.target.dataset, { x, y })
@@ -54,6 +76,9 @@ export default {
             });
     },
     methods: {
+        getQrcode(data, id) {
+            this.qrcode = data;
+        },
         generateImage() {
             document.fonts.ready.then(() => {
                 domtoimage.toPng(this.$refs.draggable).then(dataUrl => {
@@ -84,13 +109,60 @@ export default {
 </script>
 
 <style>
-.card {
-    padding: 20px;
-    width: 700px;
-    height: 500px;
+.content {
+    min-width: 393px;
+    max-width: 1800px;
+    position: relative;
+    transition: all 500ms ease 0;
+    font-family: inherit;
+}
+
+.content-mode {
+    width: 100%;
     background-color: hsla(173, 77%, 83%, 1);
-    background-image: radial-gradient(circle at 5% 1%, hsla(250, 76%, 61%, 1) 7%, transparent 84%), radial-gradient(circle at 7% 81%, hsla(184, 91%, 91%, 1) 16%, transparent 53%), radial-gradient(circle at 11% 29%, hsla(213, 97%, 75%, 1) 8%, transparent 74%), radial-gradient(circle at 39% 52%, hsla(149, 93%, 64%, 1) 6%, transparent 68%), radial-gradient(circle at 90% 50%, hsla(118, 94%, 89%, 1) 2%, transparent 85%);
-    background-blend-mode: normal, normal, normal, normal, normal;
+    background-image: linear-gradient(var(--houdini-angle), var(--houdini-colorA), var(--houdini-colorB));
+    transition: padding .5s, --houdini-angle 1s, --houdini-colorA 1s, --houdini-colorB 1s;
+    min-width: 393px;
+    padding: 50px;
+    font-family: inherit;
+    --houdini-colorA: #F4CD52;
+    --houdini-colorB: #FDCADC;
+    --houdini-angle: 45deg;
+}
+
+.title,
+.subtitle {
+    width: 100%;
+    height: auto;
+}
+
+.title {
+    font-weight: 700;
+    line-height: 1.25rem;
+}
+
+.subtitle {
+    line-height: 1.1rem;
+    line-height: 1.8;
+}
+
+.time {
+    font-size: 0.875rem;
+    opacity: .4;
+}
+
+.card {
+    width: 100%;
+    background-color: hsla(0, 0%, 100%, .5);
+    box-shadow: 0 10px 40px hsla(0, 0%, 39%, .4);
+    color: #000;
+}
+
+.editable-element {
+    display: block;
+    white-space: pre-wrap;
+    word-break: break-word;
+    outline: none;
 }
 
 .resize-handle {
@@ -100,5 +172,18 @@ export default {
     color: white;
     text-align: center;
     line-height: 20px;
+}
+
+.qrcode {
+    width: 100%;
+    opacity: .5;
+    font-size: 1.25rem;
+}
+.desc{
+    font-size: 0.875rem;
+}
+.operation {
+    position: fixed;
+    bottom: 100px;
 }
 </style>
