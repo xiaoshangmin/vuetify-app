@@ -15,8 +15,11 @@
     "@mdi/font": "5.9.55",
     "@vueuse/core": "^9.13.0",
     "axios": "^1.7.2",
+    "dom-to-image-more": "^3.3.0",
+    "interactjs": "^1.10.27",
     "roboto-fontface": "*",
     "vue": "^3.4.30",
+    "vue-qr": "^4.0.9",
     "vue-router": "^4.4.0",
     "vuetify": "^3.6.10",
     "webfontloader": "^1.0.0"

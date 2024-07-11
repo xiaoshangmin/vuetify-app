@@ -2,7 +2,7 @@
   <v-app id="app" :theme="theme">
     <v-app-bar class="px-3" density="compact" flat>
       <v-spacer></v-spacer>
-      <v-tabs color="grey-darken-2" centered> 
+      <v-tabs color="grey-darken-2" centered>
         <v-tab key="AI-移除背景" text="AI-移除背景"></v-tab>
         <v-tab key="IT 工具箱" text="IT 工具箱" @click="goItTools"></v-tab>
       </v-tabs>
@@ -102,7 +102,7 @@ export default {
         }
         return response;
       },
-      err => { 
+      err => {
         return Promise.reject(err);
       }
     );
