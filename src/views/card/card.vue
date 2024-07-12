@@ -3,9 +3,9 @@
         <div class="container d-flex justify-center align-center flex-column">
             <div class="main d-flex justify-center align-center">
                 <div class="d-sm-none d-sm-flex resize-handle">⇲</div>
-                <div class="content-mode" ref="draggable" :style="bgcolor">
+                <div class="content-mode" ref="draggable" :style="styleObject">
                     <div class="card d-flex justify-center align-start pt-4 pb-4 px-4 rounded-lg flex-column">
-                        <div contenteditable="true" class="editable-element title">
+                        <div contenteditable="true" class="editable-element title text-h6">
                             <p>👋 hi 你好</p>
                         </div>
                         <div class="editable-element content" contenteditable="true" @input="updateTitle">
@@ -15,7 +15,6 @@
                             <p>讨厌麻烦事 2024-07-15 18:20 广东</p>
                         </div>
                         <v-divider></v-divider>
-
                         <div class="qrcode pt-2 d-flex flex-row justify-space-between align-center">
                             <div>
                                 <div class="editable-element" contenteditable="true">
@@ -33,64 +32,125 @@
                 </div>
                 <div class="resize-handle d-sm-none">⇲</div>
             </div>
-            <div class="operation">
-                <div class="bgcolor">
-                    背景颜色
-                    <div class="colors d-flex">
-                        <div class="color-item rounded-circle" :style="theme" v-for="theme in themeList"
-                            @click="changeColor"></div>
-                    </div>
-                </div>
-                <div class="bgcolor">
-                    内边距
-                    <v-row>
-                        <v-col v-for="(chip, index) in chips" :key="index">
-                            <v-chip :class="{ 'selected-chip': chip.isSelected }" @click="toggleSelection(index)"
-                                outlined>
-                                芯片 {{ index + 1 }}
-                            </v-chip>
-                        </v-col>
-                    </v-row>
-                    <v-slider v-model="paddingSlider" thumb-label :step="1" track-color="grey"
-                        @update:modelValue="onChange">
-                        <template v-slot:prepend>
-                            <v-btn icon="mdi-minus" size="small" variant="text" @click="decrement"
-                                data-id="padding"></v-btn>
-                        </template>
+            <v-bottom-sheet>
+                <template v-slot:activator="{ props }">
+                    <v-btn v-bind="props" text="Click Me"></v-btn>
+                </template>
+                <v-sheet height="50vh" :elevation="5">
+                    <div class="operation pt-2 pb-2 px-2">
+                        <div class="bgcolor-class">
+                            背景颜色
+                            <v-row>
+                                <v-col v-for="theme in themeList" cols="12" sm="4">
+                                    <div class="color-item rounded-circle" :style="theme.bgcolor"
+                                        @click="changeColor(theme)">
+                                    </div>
+                                </v-col>
+                            </v-row> 
+                        </div>
+                        <div class="padding-class">
+                            内边距
+                            <v-row>
+                                <v-col>
+                                    <v-btn-toggle divided v-model="paddingSlider" color="deep-purple-accent-3"
+                                        rounded="0" group @update:modelValue="paddingSelect">
+                                        <v-btn value="20">
+                                            20
+                                        </v-btn>
+                                        <v-btn value="30">
+                                            30
+                                        </v-btn>
+                                        <v-btn value="40">
+                                            40
+                                        </v-btn>
+                                        <v-btn value="50">
+                                            50
+                                        </v-btn>
+                                        <v-btn value="60">
+                                            60
+                                        </v-btn>
+                                        <v-btn value="80">
+                                            80
+                                        </v-btn>
+                                    </v-btn-toggle>
+                                </v-col>
+                            </v-row>
+                            <v-slider v-model="paddingSlider" thumb-label :step="1" track-color="grey"
+                                @update:modelValue="onChange">
+                                <template v-slot:prepend>
+                                    <v-btn icon="mdi-minus" size="small" variant="text" @click="decrement"
+                                        data-id="padding"></v-btn>
+                                </template>
 
-                        <template v-slot:append>
-                            <v-btn :color="color" icon="mdi-plus" size="small" variant="text" @click="increment"
-                                data-id="padding"></v-btn>
-                        </template>
-                    </v-slider>
-                </div>
-                <div class="bgcolor">
-                    宽度
-                    <div class="colors d-flex">
-                        <v-slider v-model="widthSlider" thumb-label :step="1" track-color="grey">
-                            <template v-slot:prepend>
-                                <v-btn icon="mdi-minus" size="small" variant="text" @click="decrement"
-                                    data-id="width"></v-btn>
-                            </template>
+                                <template v-slot:append>
+                                    <v-btn :color="color" icon="mdi-plus" size="small" variant="text" @click="increment"
+                                        data-id="padding"></v-btn>
+                                </template>
+                            </v-slider>
+                        </div>
+                        <div class="width-class">
+                            宽度
+                            <v-row>
+                                <v-col>
+                                    <v-btn-toggle divided v-model="widthSlider" color="deep-purple-accent-3" rounded="0"
+                                        group>
+                                        <v-btn value="393">
+                                            小
+                                        </v-btn>
+                                        <v-btn value="420">
+                                            默认
+                                        </v-btn>
+                                        <v-btn value="500">
+                                            中
+                                        </v-btn>
+                                        <v-btn value="600">
+                                            大
+                                        </v-btn>
+                                    </v-btn-toggle>
+                                </v-col>
+                            </v-row>
+                            <div class="colors d-flex">
+                                <v-slider v-model="widthSlider" thumb-label :step="1" track-color="grey">
+                                    <template v-slot:prepend>
+                                        <v-btn icon="mdi-minus" size="small" variant="text" @click="decrement"
+                                            data-id="width"></v-btn>
+                                    </template>
 
-                            <template v-slot:append>
-                                <v-btn icon="mdi-plus" size="small" variant="text" @click="increment"
-                                    data-id="width"></v-btn>
-                            </template>
-                        </v-slider>
+                                    <template v-slot:append>
+                                        <v-btn icon="mdi-plus" size="small" variant="text" @click="increment"
+                                            data-id="width"></v-btn>
+                                    </template>
+                                </v-slider>
+                            </div>
+                        </div>
+                        <div class="font-size-class">
+                            字体大小
+                            <v-row>
+                                <v-col>
+                                    <v-btn-toggle divided v-model="fontSize" color="deep-purple-accent-3" rounded="0"
+                                        group>
+                                        <v-btn value="0.77">
+                                            小
+                                        </v-btn>
+                                        <v-btn value="1.1">
+                                            默认
+                                        </v-btn>
+                                        <v-btn value="1.375">
+                                            中
+                                        </v-btn>
+                                        <v-btn value="1.65">
+                                            大
+                                        </v-btn>
+                                    </v-btn-toggle>
+                                </v-col>
+                            </v-row>
+                        </div>
+                        <v-btn @click="generateImage">
+                            下载图片
+                        </v-btn>
                     </div>
-                </div>
-                <div class="bgcolor">
-                    字体大小
-                    <div class="colors d-flex">
-                        <div class="color-item rounded-circle" v-for="(theme, index) in themeList" :key="index"
-                            :style="theme" @click="changeColor"></div>
-                    </div>
-                </div>
-                <v-btn @click="generateImage">
-                    下载图片
-                </v-btn>
-            </div>
+                </v-sheet>
+            </v-bottom-sheet>
         </div>
     </v-container>
 </template>
@@ -102,19 +162,30 @@ import domtoimage from 'dom-to-image-more';
 
 export default {
     data: () => ({
-        chips: [
-            { isSelected: false },
-            { isSelected: false },
-            { isSelected: false },
-            // 可以根据需要添加更多芯片
-        ],
         canvas: null,
         content: "",
         qrcode: "",
-        widthSlider: 50,
-        paddingSlider: 50,
-        themeList: ["background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));"],
-        bgcolor: "",
+        fontSize: '1.1',
+        widthSlider: '420',
+        paddingSlider: '50',
+        themeList: [
+            { "bgcolor": "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "colorA": "rgb(191, 69, 133)", "colorB": "rgb(245, 159, 156)" },
+            { "bgcolor": "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "colorA": "rgb(91, 69, 133)", "colorB": "rgb(245, 159, 156)" },
+            { "bgcolor": "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "colorA": "rgb(11, 69, 133)", "colorB": "rgb(245, 159, 156)" },
+            { "bgcolor": "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "colorA": "rgb(19, 69, 133)", "colorB": "rgb(245, 159, 156)" },
+            { "bgcolor": "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "colorA": "rgb(101, 69, 133)", "colorB": "rgb(245, 159, 156)" },
+            { "bgcolor": "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "colorA": "rgb(161, 69, 133)", "colorB": "rgb(245, 159, 156)" },
+            { "bgcolor": "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "colorA": "rgb(191, 69, 133)", "colorB": "rgb(245, 159, 156)" },
+            { "bgcolor": "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "colorA": "rgb(91, 69, 133)", "colorB": "rgb(245, 159, 156)" },
+            { "bgcolor": "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "colorA": "rgb(11, 69, 133)", "colorB": "rgb(245, 159, 156)" },
+            { "bgcolor": "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "colorA": "rgb(19, 69, 133)", "colorB": "rgb(245, 159, 156)" },
+            { "bgcolor": "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "colorA": "rgb(101, 69, 133)", "colorB": "rgb(245, 159, 156)" },
+            { "bgcolor": "background-image: linear-gradient(45deg, rgb(191, 69, 133), rgb(245, 159, 156));", "colorA": "rgb(161, 69, 133)", "colorB": "rgb(245, 159, 156)" },
+        ],
+        styleObject: {
+            padding: '50px',
+            width: '20px'
+        },
         qrData: "https://www.baidu.com/",
     }),
     created() {
@@ -144,34 +215,35 @@ export default {
             });
     },
     methods: {
-        toggleSelection(index) {
-      this.chips[index].isSelected = !this.chips[index].isSelected;
-    },
         getQrcode(data, id) {
             this.qrcode = data;
         },
-        changeColor(e) {
-            // this.theme = " --colorA: #B41433; --colorB: #CDCBFF; --angle: 45deg;"
-            this.$refs.draggable.style.setProperty('--colorA', '#B41433');
-            this.$refs.draggable.style.setProperty('--colorB', '#CDCBFF');
+        changeColor(theme) {
+            this.$refs.draggable.style.setProperty('--colorA', theme.colorA);
+            this.$refs.draggable.style.setProperty('--colorB', theme.colorB);
             this.$refs.draggable.style.setProperty('--angle', '45deg');
 
         },
         onChange(e) {
-            this.$refs.draggable.style.setProperty('padding', `${this.paddingSlider}px`);
+            this.styleObject.padding = `${this.paddingSlider}px`
+        },
+        paddingSelect(e) {
+            this.styleObject.padding = `${this.paddingSlider}px`
         },
         decrement(e) {
             if ("padding" == e.currentTarget.dataset.id) {
-                this.paddingSlider -= 1
-                this.$refs.draggable.style.setProperty('padding', `${this.paddingSlider}px`);
+                let paddingSlider = parseInt(this.paddingSlider) - 1
+                this.paddingSlider = paddingSlider + ""
+                this.styleObject.padding = `${this.paddingSlider}px`
             } else {
                 this.widthSlider -= 1
             }
         },
         increment(e) {
             if ("padding" == e.currentTarget.dataset.id) {
-                this.paddingSlider += 1
-                this.$refs.draggable.style.setProperty('padding', `${this.paddingSlider}px`);
+                let paddingSlider = parseInt(this.paddingSlider) + 1
+                this.paddingSlider = paddingSlider + ""
+                this.styleObject.padding = `${this.paddingSlider}px`
             } else {
                 this.widthSlider += 1
             }
@@ -199,7 +271,6 @@ export default {
             }
         },
         updateTitle(event) {
-            // console.log(event)
             this.content = event.target.innerText;
         }
     }
@@ -224,9 +295,7 @@ export default {
     inherits: false;
     initial-value: #6cd5c4
 }
-.selected-chip {
-  border: 2px solid blue;
-}
+
 
 .container {
     font-family: "Roboto", sans-serif;
@@ -308,13 +377,12 @@ export default {
     font-size: 0.875rem;
 }
 
-.operation {
-    position: fixed;
-    bottom: 100px;
-}
+.operation {}
 
-.bgcolor {
-    margin: 2rem 0;
+.bgcolor-class,
+.width-class,
+.padding-class {
+    /* margin: 2rem 0; */
 }
 
 .color-item {
