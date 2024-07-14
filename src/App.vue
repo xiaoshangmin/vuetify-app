@@ -4,6 +4,7 @@
       <v-spacer></v-spacer>
       <v-tabs color="grey-darken-2" centered>
         <v-tab key="AI-移除背景" text="AI-移除背景"></v-tab>
+        <v-tab key="简单卡片" text="简单卡片"  @click="goCard"></v-tab>
         <v-tab key="IT 工具箱" text="IT 工具箱" @click="goItTools"></v-tab>
       </v-tabs>
       <v-spacer></v-spacer>
@@ -117,6 +118,9 @@ export default {
     },
     goItTools() {
       window.open("https://tools.wowyou.cc")
+    },
+    goCard(){
+      window.open("https://card.wowyou.cc")
     },
     onClick() {
       this.theme = this.theme === 'light' ? 'dark' : 'light'
