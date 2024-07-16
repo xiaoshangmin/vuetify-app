@@ -120,7 +120,7 @@ export default {
       window.open("https://tools.wowyou.cc")
     },
     goCard(){
-      window.open("https://card.wowyou.cc")
+      window.open("https://removebg.wowyou.cc/#/card")
     },
     onClick() {
       this.theme = this.theme === 'light' ? 'dark' : 'light'
